@@ -1382,6 +1382,13 @@ textarea.form-input {
         height: 70px;
     }
     
+    /* Reduzindo tamanho dos orbes de fundo para evitar overflow */
+    .glow-orb {
+        width: 300px;
+        height: 300px;
+        filter: blur(80px);
+    }
+
     .nav {
         display: none; /* Hide standard nav */
     }
