@@ -14,13 +14,17 @@
     <meta property="og:description" content="Premium web designer and developer building fast, modern, conversion-focused websites for businesses that want to stand out.">
     <meta property="og:image" content="assets/images/portfolio_preview.png">
 
+    <!-- Resource Preloads -->
+    <link rel="preload" href="hero-lucas.png" as="image">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" as="style">
+
     <!-- Google Fonts: Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.min.css">
 </head>
 <body>
 
@@ -80,7 +84,7 @@
                     </div>
 
                     <h1 class="hero-title">
-                         High-Converting Websites for US <span class="text-yellow"><span id="dynamic-word">Realtors</span>.</span>
+                         High-Converting Websites for US <span class="text-yellow" id="dynamic-word">Realtors</span>.
                     </h1>
 
                     <p class="hero-desc">
@@ -191,7 +195,6 @@
                         <!-- Realtor Project -->
                         <article class="project-card">
                             <div class="project-img-wrap">
-                                <span class="project-badge">Concept Design</span>
                                 <span class="project-industry">REAL ESTATE</span>
                                 <div class="browser-mockup">
                                     <div class="browser-header">
@@ -210,6 +213,7 @@
                                 </div>
                             </div>
                             <div class="project-body">
+                                <span class="project-badge">Concept Design</span>
                                 <h3 class="project-title">Sarah Vance Luxury Realtor</h3>
                                 <p class="project-desc">A premium, warm-dark luxury design exercise for the real estate niche. Features backdrop filters, gold border accents, mockup testimony loop, and a real-time home valuation calculation engine.</p>
                                 <div class="project-tech">
@@ -228,7 +232,6 @@
                         <!-- Dental Project -->
                         <article class="project-card">
                             <div class="project-img-wrap">
-                                <span class="project-badge">Concept Design</span>
                                 <span class="project-industry">HEALTHCARE</span>
                                 <div class="browser-mockup">
                                     <div class="browser-header">
@@ -247,6 +250,7 @@
                                 </div>
                             </div>
                             <div class="project-body">
+                                <span class="project-badge">Concept Design</span>
                                 <h3 class="project-title">Bright Smile Dental Clinic</h3>
                                 <p class="project-desc">A clean, medical-grade design exercise for the healthcare and cosmetic dentistry niche. Features minimal typography, smooth slide transitions, mockup appointment scheduling modals, and before/after outcome frames.</p>
                                 <div class="project-tech">
@@ -265,7 +269,6 @@
                         <!-- Roofing Project -->
                         <article class="project-card">
                             <div class="project-img-wrap">
-                                <span class="project-badge">Concept Design</span>
                                 <span class="project-industry">CONSTRUCTION</span>
                                 <div class="browser-mockup">
                                     <div class="browser-header">
@@ -284,6 +287,7 @@
                                 </div>
                             </div>
                             <div class="project-body">
+                                <span class="project-badge">Concept Design</span>
                                 <h3 class="project-title">Summit Roofing & Exteriors</h3>
                                 <p class="project-desc">A bold, high-contrast design exercise for the construction and contracting niche. Features geometric cards, micro-interactions, alert banners, and comprehensive lead diagnostic layouts.</p>
                                 <div class="project-tech">
@@ -642,6 +646,6 @@
     </div>
 
     <!-- JS -->
-    <script src="script.js" defer></script>
+    <script src="script.min.js" defer></script>
 </body>
 </html>
