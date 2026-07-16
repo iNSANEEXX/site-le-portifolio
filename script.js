@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // 8. Dynamic Header Word Alternator (Typing Effect)
     // ==========================================================================
-    const switchWords = ["Businesses", "Realtors", "Clinics", "Contractors"];
+    const switchWords = ["Realtors", "Clinics", "Contractors", "Local Businesses"];
     const textTarget = document.getElementById('dynamic-word');
     
     if (textTarget) {
