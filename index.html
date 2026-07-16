@@ -78,7 +78,7 @@
                     </div>
 
                     <h1 class="hero-title">
-                         Premium Websites That Help <span class="text-yellow">Businesses Grow.</span>
+                         Premium Websites That Help <span class="text-yellow"><span id="dynamic-word">Businesses</span> Grow.</span>
                     </h1>
 
                     <p class="hero-desc">
@@ -184,81 +184,123 @@
                     <p>Each project is handcrafted to elevate the brand's identity, solve industry complications, and drive sales funnel conversions.</p>
                 </div>
 
-                <div class="projects-grid">
-                    <!-- Realtor Project -->
-                    <article class="project-card">
-                        <div class="project-img-wrap">
-                            <span class="project-industry">REAL ESTATE</span>
-                            <div class="project-image-slot real-estate-bg">
-                                <span class="project-mockup-title">SARAH VANCE</span>
-                                <span class="project-mockup-sub">Luxury Advisor</span>
+                <div class="portfolio-slider-container">
+                    <div class="projects-grid" id="projects-slider">
+                        <!-- Realtor Project -->
+                        <article class="project-card">
+                            <div class="project-img-wrap">
+                                <span class="project-industry">REAL ESTATE</span>
+                                <div class="browser-mockup">
+                                    <div class="browser-header">
+                                        <div class="browser-dots">
+                                            <span class="b-dot red"></span>
+                                            <span class="b-dot yellow"></span>
+                                            <span class="b-dot green"></span>
+                                        </div>
+                                        <div class="browser-address">realtorluxury.com</div>
+                                    </div>
+                                    <div class="browser-screen">
+                                        <div class="browser-scroll-area">
+                                            <img src="realtor-portfolio.png" alt="Sarah Vance Luxury Realtor" class="browser-image" loading="lazy" width="400" height="600">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="project-body">
-                            <h3 class="project-title">Sarah Vance Luxury Realtor</h3>
-                            <p class="project-desc">A premium, warm-dark luxury landing page for an elite realtor in Beverly Hills. Features backdrop filters, gold border accents, client testimony loop, and a real-time home valuation calculation engine.</p>
-                            <div class="project-tech">
-                                <span>HTML5</span>
-                                <span>Vanilla CSS</span>
-                                <span>JavaScript ES6</span>
-                                <span>Responsive</span>
-                                <span>Valuation Engine</span>
+                            <div class="project-body">
+                                <h3 class="project-title">Sarah Vance Luxury Realtor</h3>
+                                <p class="project-desc">A premium, warm-dark luxury landing page for an elite realtor in Beverly Hills. Features backdrop filters, gold border accents, client testimony loop, and a real-time home valuation calculation engine.</p>
+                                <div class="project-tech">
+                                    <span>HTML5</span>
+                                    <span>Vanilla CSS</span>
+                                    <span>JavaScript ES6</span>
+                                    <span>Responsive</span>
+                                    <span>Valuation Engine</span>
+                                </div>
+                                <a href="https://realtorluxury.vercel.app/" target="_blank" class="btn btn-purple btn-block project-cta">
+                                    <span>Live Demo &rarr;</span>
+                                </a>
                             </div>
-                            <a href="https://realtorluxury.vercel.app/" target="_blank" class="btn btn-purple btn-block project-cta">
-                                <span>Live Demo &rarr;</span>
-                            </a>
-                        </div>
-                    </article>
+                        </article>
 
-                    <!-- Dental Project -->
-                    <article class="project-card">
-                        <div class="project-img-wrap">
-                            <span class="project-industry">HEALTHCARE</span>
-                            <div class="project-image-slot dental-bg">
-                                <span class="project-mockup-title">BRIGHT SMILE</span>
-                                <span class="project-mockup-sub">Dental Clinic</span>
+                        <!-- Dental Project -->
+                        <article class="project-card">
+                            <div class="project-img-wrap">
+                                <span class="project-industry">HEALTHCARE</span>
+                                <div class="browser-mockup">
+                                    <div class="browser-header">
+                                        <div class="browser-dots">
+                                            <span class="b-dot red"></span>
+                                            <span class="b-dot yellow"></span>
+                                            <span class="b-dot green"></span>
+                                        </div>
+                                        <div class="browser-address">clinic-dentail.vercel.app</div>
+                                    </div>
+                                    <div class="browser-screen">
+                                        <div class="browser-scroll-area">
+                                            <img src="dental-portfolio.png" alt="Bright Smile Dental Clinic" class="browser-image" loading="lazy" width="400" height="600">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="project-body">
-                            <h3 class="project-title">Bright Smile Dental Clinic</h3>
-                            <p class="project-desc">A clean, medical-grade landing page for a cosmetic dentistry clinic in Naples, FL. Minimal typography, smooth slide transitions, interactive appointment scheduling modals, and before/after outcome frames.</p>
-                            <div class="project-tech">
-                                <span>HTML5</span>
-                                <span>Vanilla CSS</span>
-                                <span>JavaScript ES6</span>
-                                <span>Medical Styling</span>
-                                <span>Interactive Modals</span>
+                            <div class="project-body">
+                                <h3 class="project-title">Bright Smile Dental Clinic</h3>
+                                <p class="project-desc">A clean, medical-grade landing page for a cosmetic dentistry clinic in Naples, FL. Minimal typography, smooth slide transitions, interactive appointment scheduling modals, and before/after outcome frames.</p>
+                                <div class="project-tech">
+                                    <span>HTML5</span>
+                                    <span>Vanilla CSS</span>
+                                    <span>JavaScript ES6</span>
+                                    <span>Medical Styling</span>
+                                    <span>Interactive Modals</span>
+                                </div>
+                                <a href="https://clinic-dentail.vercel.app/" target="_blank" class="btn btn-purple btn-block project-cta">
+                                    <span>Live Demo &rarr;</span>
+                                </a>
                             </div>
-                            <a href="https://clinic-dentail.vercel.app/" target="_blank" class="btn btn-purple btn-block project-cta">
-                                <span>Live Demo &rarr;</span>
-                            </a>
-                        </div>
-                    </article>
+                        </article>
 
-                    <!-- Roofing Project -->
-                    <article class="project-card">
-                        <div class="project-img-wrap">
-                            <span class="project-industry">CONSTRUCTION</span>
-                            <div class="project-image-slot roofing-bg">
-                                <span class="project-mockup-title">SUMMIT ROOFING</span>
-                                <span class="project-mockup-sub">Exteriors Group</span>
+                        <!-- Roofing Project -->
+                        <article class="project-card">
+                            <div class="project-img-wrap">
+                                <span class="project-industry">CONSTRUCTION</span>
+                                <div class="browser-mockup">
+                                    <div class="browser-header">
+                                        <div class="browser-dots">
+                                            <span class="b-dot red"></span>
+                                            <span class="b-dot yellow"></span>
+                                            <span class="b-dot green"></span>
+                                        </div>
+                                        <div class="browser-address">roofing-lac.vercel.app</div>
+                                    </div>
+                                    <div class="browser-screen">
+                                        <div class="browser-scroll-area">
+                                            <img src="roofing-portfolio.png" alt="Summit Roofing & Exteriors" class="browser-image" loading="lazy" width="400" height="600">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="project-body">
-                            <h3 class="project-title">Summit Roofing & Exteriors</h3>
-                            <p class="project-desc">A masculine, high-contrast structural contractor landing page in Tampa, FL. Bold geometric cards, micro-interactions, urgency banner alerting users of storm inspections, and comprehensive diagnostic request capture.</p>
-                            <div class="project-tech">
-                                <span>HTML5</span>
-                                <span>Vanilla CSS</span>
-                                <span>JavaScript ES6</span>
-                                <span>Dark Charcoal Theme</span>
-                                <span>Lead Capture</span>
+                            <div class="project-body">
+                                <h3 class="project-title">Summit Roofing & Exteriors</h3>
+                                <p class="project-desc">A masculine, high-contrast structural contractor landing page in Tampa, FL. Bold geometric cards, micro-interactions, urgency banner alerting users of storm inspections, and comprehensive diagnostic request capture.</p>
+                                <div class="project-tech">
+                                    <span>HTML5</span>
+                                    <span>Vanilla CSS</span>
+                                    <span>JavaScript ES6</span>
+                                    <span>Dark Charcoal Theme</span>
+                                    <span>Lead Capture</span>
+                                </div>
+                                <a href="https://roofing-lac.vercel.app/" target="_blank" class="btn btn-purple btn-block project-cta">
+                                    <span>Live Demo &rarr;</span>
+                                </a>
                             </div>
-                            <a href="https://roofing-lac.vercel.app/" target="_blank" class="btn btn-purple btn-block project-cta">
-                                <span>Live Demo &rarr;</span>
-                            </a>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
+
+                    <!-- Dots for mobile navigation -->
+                    <div class="portfolio-dots">
+                        <button class="dot-btn active" data-slide="0" aria-label="Go to project 1"></button>
+                        <button class="dot-btn" data-slide="1" aria-label="Go to project 2"></button>
+                        <button class="dot-btn" data-slide="2" aria-label="Go to project 3"></button>
+                    </div>
                 </div>
             </div>
         </section>

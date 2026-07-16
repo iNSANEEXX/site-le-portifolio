@@ -100,7 +100,25 @@ main {
 
 .text-center { text-align: center; }
 .purple-accent { color: var(--purple); }
-.text-yellow { color: var(--yellow); }
+.text-yellow {
+    background: linear-gradient(to right, var(--yellow) 0%, #c084fc 50%, var(--yellow) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGradientFlow 6s linear infinite;
+    display: inline-block;
+}
+
+#dynamic-word {
+    display: inline-block;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(0);
+}
+
+@keyframes textGradientFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
 .mt-4 { margin-top: 1rem; }
 
 /* Keyboard Accessibility */
@@ -661,41 +679,50 @@ textarea:focus-visible {
 }
 
 /* ==========================================================================
-   Featured Work / Case Studies
+   Featured Work / Case Studies (Browser Mockup & Scroll Effect)
    ========================================================================== */
+.portfolio-slider-container {
+    position: relative;
+    width: 100%;
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    transition: var(--transition);
 }
 
 .project-card {
-    background-color: var(--bg-page);
+    background-color: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: var(--transition);
+    position: relative;
 }
 
 .project-card:hover {
     transform: translateY(-8px);
-    border-color: var(--border-hover);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(124, 58, 237, 0.15);
+    border-color: var(--purple);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.6), 0 0 30px rgba(124, 58, 237, 0.2);
 }
 
 .project-img-wrap {
     position: relative;
-    height: 200px;
+    padding: 18px 18px 0 18px;
+    background-color: rgba(6, 4, 10, 0.4);
+    border-bottom: 1px solid var(--border);
     overflow: hidden;
 }
 
 .project-industry {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    background-color: rgba(8, 9, 11, 0.85);
+    top: 28px;
+    right: 28px;
+    background-color: rgba(12, 10, 18, 0.85);
     backdrop-filter: blur(4px);
     border: 1px solid var(--border);
     padding: 4px 12px;
@@ -703,60 +730,89 @@ textarea:focus-visible {
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    z-index: 2;
+    z-index: 5;
+    color: var(--text-main);
 }
 
-.project-image-slot {
+/* Browser Mockup CSS */
+.browser-mockup {
+    width: 100%;
+    background-color: #12101e;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+}
+
+.browser-header {
+    background-color: #0c0a12;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 8px 12px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+}
+
+.browser-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.b-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.b-dot.red { background-color: #ef4444; }
+.b-dot.yellow { background-color: #f59e0b; }
+.b-dot.green { background-color: #10b981; }
+
+.browser-address {
+    background-color: #1c182d;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    padding: 2px 8px;
+    text-align: center;
+    font-family: monospace;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid rgba(255, 255, 255, 0.01);
+}
+
+.browser-screen {
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    position: relative;
+    background-color: #06040a;
+}
+
+.browser-scroll-area {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.5s ease;
+    overflow: hidden;
 }
 
-.project-card:hover .project-image-slot {
-    transform: scale(1.05);
+.browser-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 9s ease-in-out;
+    transform: translateY(0);
 }
 
-/* Stylized placeholder backgrounds representing the brands */
-.real-estate-bg {
-    background: linear-gradient(135deg, #0f1013 0%, #1a1c22 100%);
-    border-bottom: 2px solid #D4AF37;
-}
-
-.dental-bg {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border-bottom: 2px solid #0066FF;
-}
-
-.roofing-bg {
-    background: linear-gradient(135deg, #181a1f 0%, #2a2d35 100%);
-    border-bottom: 2px solid #FF6B00;
-}
-
-.project-mockup-title {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: 1px;
-}
-
-.real-estate-bg .project-mockup-title { color: #D4AF37; }
-.dental-bg .project-mockup-title { color: #0066FF; }
-.roofing-bg .project-mockup-title { color: #FFFFFF; }
-
-.project-mockup-sub {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-light);
-    margin-top: 4px;
+/* Scroll Effect on Hover */
+.project-card:hover .browser-image {
+    transform: translateY(calc(-100% + 190px));
 }
 
 .project-body {
-    padding: 30px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -764,9 +820,10 @@ textarea:focus-visible {
 
 .project-title {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    color: #FFFFFF;
 }
 
 .project-desc {
@@ -774,7 +831,7 @@ textarea:focus-visible {
     color: var(--text-muted);
     font-weight: 300;
     line-height: 1.6;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     flex-grow: 1;
 }
 
@@ -782,12 +839,12 @@ textarea:focus-visible {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .project-tech span {
     font-family: monospace;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-light);
     background-color: var(--bg-surface);
     border: 1px solid var(--border);
@@ -1206,7 +1263,7 @@ textarea.form-input {
     animation: pulse 1.5s infinite;
 }
 
-/* Ambient glow orbs & textures */
+/* Ambient glow orbs & textures with floating animations */
 .glow-orb {
     position: absolute;
     width: 600px;
@@ -1216,6 +1273,7 @@ textarea.form-input {
     pointer-events: none;
     z-index: 1;
     opacity: 0.08;
+    animation: floatOrb 25s infinite ease-in-out alternate;
 }
 
 .orb-purple {
@@ -1228,6 +1286,19 @@ textarea.form-input {
     background: radial-gradient(circle, var(--yellow) 0%, transparent 70%);
     bottom: 15%;
     right: -200px;
+    animation-delay: -12.5s;
+}
+
+@keyframes floatOrb {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(90px, -70px) scale(1.1);
+    }
+    100% {
+        transform: translate(-45px, 45px) scale(0.95);
+    }
 }
 
 .project-card, .why-card, .testimonials-placeholder, .contact-panel, .cta-panel {
@@ -1235,6 +1306,26 @@ textarea.form-input {
     background-color: var(--bg-surface);
     border: 1px solid var(--border);
     backdrop-filter: blur(8px);
+}
+
+/* Interactive light reflection that follows mouse on hover */
+.project-card::before, .why-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(124, 58, 237, 0.12),
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.project-card:hover::before, .why-card:hover::before {
+    opacity: 1;
 }
 
 /* Subtle border glow animation on card hover */
@@ -1425,7 +1516,28 @@ textarea.form-input {
     }
     
     .projects-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        gap: 20px;
+        padding: 10px 4px 20px 4px;
+        scrollbar-width: none;
+    }
+    .projects-grid::-webkit-scrollbar {
+        display: none;
+    }
+    .project-card {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+    }
+    .portfolio-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
     
     .why-me-grid {
@@ -1472,4 +1584,61 @@ textarea.form-input {
         top: 10px;
         left: 10px;
     }
+}
+
+/* ==========================================================================
+   Dots Navigation & Glassmorphism & Scroll Transitions
+   ========================================================================== */
+.portfolio-dots {
+    display: none; /* Hidden on desktop */
+}
+
+.dot-btn {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.dot-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.dot-btn.active {
+    background-color: var(--purple);
+    box-shadow: 0 0 8px var(--purple);
+    width: 22px;
+    border-radius: 6px;
+}
+
+/* Glassmorphism Refinements */
+.header, .contact-panel, .cta-panel {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.contact-panel {
+    background-color: rgba(12, 10, 18, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.cta-panel {
+    background-color: rgba(18, 15, 31, 0.65) !important;
+    border: 1px solid rgba(124, 58, 237, 0.2) !important;
+}
+
+/* Fade-in Scroll Animation */
+.fade-in-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
