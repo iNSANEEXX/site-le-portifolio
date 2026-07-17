@@ -61,7 +61,7 @@ html {
     height: 120%;
     z-index: -2; /* Under everything */
     pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 40 C 90 20, 120 80, 210 60 C 290 40, 310 100, 410 80 M-10 80 C 80 60, 110 120, 200 100 C 280 80, 300 140, 410 120 M-10 120 C 70 100, 100 160, 190 140 C 270 120, 290 180, 410 160 M-10 160 C 60 140, 90 200, 180 180 C 260 160, 280 220, 410 200 M-10 200 C 50 180, 80 240, 170 220 C 250 200, 270 260, 410 240 M-10 240 C 40 220, 70 280, 160 260 C 240 240, 260 300, 410 280 M-10 280 C 30 260, 60 320, 150 300 C 230 280, 250 340, 410 320 M-10 320 C 20 300, 50 360, 140 340 C 220 320, 240 380, 410 360 M-10 360 C 10 340, 40 400, 130 380 C 210 360, 230 420, 410 400' fill='none' stroke='rgba(124, 58, 237, 0.023)' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 40 C 90 20, 120 80, 210 60 C 290 40, 310 100, 410 80 M-10 80 C 80 60, 110 120, 200 100 C 280 80, 300 140, 410 120 M-10 120 C 70 100, 100 160, 190 140 C 270 120, 290 180, 410 160 M-10 160 C 60 140, 90 200, 180 180 C 260 160, 280 220, 410 200 M-10 200 C 50 180, 80 240, 170 220 C 250 200, 270 260, 410 240 M-10 240 C 40 220, 70 280, 160 260 C 240 240, 260 300, 410 280 M-10 280 C 30 260, 60 320, 150 300 C 230 280, 250 340, 410 320 M-10 320 C 20 300, 50 360, 140 340 C 220 320, 240 380, 410 360 M-10 360 C 10 340, 40 400, 130 380 C 210 360, 230 420, 410 400' fill='none' stroke='rgba(255, 255, 255, 0.015)' stroke-width='1.2'/%3E%3C/svg%3E");
     background-size: 450px 450px;
     will-change: transform;
     animation: topoMove 80s infinite linear alternate;
@@ -1457,15 +1457,13 @@ textarea.form-input {
 }
 
 .texture-dots::before {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.045) 1.5px, transparent 1.5px);
-    background-size: 24px 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 40 C 90 20, 120 80, 210 60 C 290 40, 310 100, 410 80 M-10 80 C 80 60, 110 120, 200 100 C 280 80, 300 140, 410 120 M-10 120 C 70 100, 100 160, 190 140 C 270 120, 290 180, 410 160 M-10 160 C 60 140, 90 200, 180 180' fill='none' stroke='rgba(255, 255, 255, 0.012)' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-size: 450px 450px;
 }
 
 .texture-lines::before {
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 200 C 50 180, 80 240, 170 220 C 250 200, 270 260, 410 240 M-10 240 C 40 220, 70 280, 160 260 C 240 240, 260 300, 410 280 M-10 280 C 30 260, 60 320, 150 300 C 230 280, 250 340, 410 320' fill='none' stroke='rgba(255, 255, 255, 0.012)' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-size: 450px 450px;
 }
 
 .texture-dots .container, .texture-lines .container {
@@ -2480,10 +2478,8 @@ textarea.form-input {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 40 C 90 20, 120 80, 210 60 C 290 40, 310 100, 410 80 M-10 80 C 80 60, 110 120, 200 100 C 280 80, 300 140, 410 120 M-10 120 C 70 100, 100 160, 190 140 C 270 120, 290 180, 410 160 M-10 160 C 60 140, 90 200, 180 180 C 260 160, 280 220, 410 200 M-10 200 C 50 180, 80 240, 170 220 C 250 200, 270 260, 410 240 M-10 240 C 40 220, 70 280, 160 260 C 240 240, 260 300, 410 280' fill='none' stroke='rgba(255, 255, 255, 0.015)' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-size: 450px 450px;
     background-position: center;
     mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
     -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
