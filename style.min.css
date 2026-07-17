@@ -4,11 +4,11 @@
    ========================================================================== */
 
 :root {
-    /* Sophisticated Dark Palette (with purple tint) */
-    --bg-page: #06040A;
-    --bg-surface: #0C0A12;
-    --bg-card: #120F1F;
-    --bg-card-hover: #19152B;
+    /* Sophisticated Dark Palette (with purple tint) - OLED optimized */
+    --bg-page: #030008;
+    --bg-surface: #090714;
+    --bg-card: #0e0b21;
+    --bg-card-hover: #15112e;
     
     --text-main: #F8FAFC;
     --text-muted: #A5B4FC; 
@@ -146,32 +146,38 @@ textarea:focus-visible {
    ========================================================================== */
 .header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1200px;
     z-index: 100;
-    background-color: rgba(8, 9, 11, 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+    background-color: rgba(9, 7, 20, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
     transition: var(--transition);
 }
 
 .header.sticky {
-    padding: 10px 0;
-    background-color: rgba(8, 9, 11, 0.95);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    top: 10px;
+    background-color: rgba(6, 4, 10, 0.85);
+    border-color: rgba(124, 58, 237, 0.25);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
 }
 
 .header-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 90px;
+    height: 76px;
+    padding: 0 24px;
     transition: var(--transition);
 }
 
 .header.sticky .header-inner {
-    height: 70px;
+    height: 64px;
 }
 
 .brand-logo-link {
@@ -872,21 +878,25 @@ textarea:focus-visible {
 .why-me-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 24px;
 }
 
 .why-card {
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border);
+    background-color: rgba(14, 11, 33, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius);
     padding: 36px;
-    transition: var(--transition);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
 .why-card:hover {
-    border-color: var(--purple);
+    border-color: rgba(124, 58, 237, 0.3);
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 25px rgba(124, 58, 237, 0.15);
 }
 
 .why-icon-wrap {
@@ -2255,10 +2265,205 @@ textarea.form-input {
     padding-bottom: 24px;
 }
 
-.faq-content p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    font-weight: 300;
+    .faq-content p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        font-weight: 300;
+    }
 }
 
+/* ==========================================================================
+   BENTO GRID LAYOUT & VISUAL MOCKUPS
+   ========================================================================== */
+.why-card.bento-span-2 {
+    grid-column: span 2;
+}
+
+.why-card.bento-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.bento-col-content {
+    flex: 1;
+}
+
+.bento-visual {
+    flex: 0 0 160px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background-color: rgba(6, 4, 10, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+/* PageSpeed Gauge Mockup */
+.performance-visual {
+    background: radial-gradient(circle at center, rgba(37, 211, 102, 0.08) 0%, transparent 70%);
+}
+
+.pagespeed-gauge {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+
+.gauge-ring {
+    transform: rotate(-90deg);
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 2.8;
+}
+
+.gauge-fill {
+    fill: none;
+    stroke: var(--whatsapp);
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    transition: stroke-dasharray 1s ease;
+}
+
+.gauge-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--whatsapp);
+    text-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+}
+
+.gauge-label {
+    margin-top: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+/* SEO Visual Mockup */
+.seo-visual {
+    background: radial-gradient(circle at center, rgba(0, 242, 254, 0.08) 0%, transparent 70%);
+    padding: 16px;
+}
+
+.seo-tag-cloud {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.seo-tag {
+    font-family: monospace;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: fit-content;
+    white-space: nowrap;
+}
+
+.tag-h1 { color: #00f2fe; border-color: rgba(0, 242, 254, 0.2); }
+.tag-meta { color: #ff007f; border-color: rgba(255, 0, 127, 0.2); align-self: flex-end; }
+.tag-alt { color: var(--yellow); border-color: var(--yellow-subtle); }
+.tag-site { color: var(--purple); border-color: rgba(124, 58, 237, 0.2); align-self: flex-end; }
+
+/* Code Terminal Mockup */
+.code-visual {
+    background: radial-gradient(circle at center, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+    padding: 12px;
+}
+
+.code-terminal {
+    font-family: monospace;
+    font-size: 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.t-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+}
+.t-dot.red { background-color: #ef4444; }
+.t-dot.yellow { background-color: #f59e0b; }
+.t-dot.green { background-color: #10b981; }
+
+.code-line {
+    white-space: nowrap;
+}
+.code-line.html-tag { color: var(--purple); }
+.code-line.css-prop { color: var(--yellow); }
+.code-line.indent { padding-left: 10px; }
+
+@media (max-width: 991px) {
+    .why-card.bento-span-2 {
+        grid-column: span 1;
+    }
+
+    .why-card.bento-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .bento-visual {
+        width: 100%;
+        flex: 1 1 120px;
+        height: 120px;
+    }
+}
+
+/* ==========================================================================
+   BLUEPRINT GRID OVERLAY FOR HERO
+   ========================================================================== */
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(124, 58, 237, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   GLASSMORPHISM CARD REFINEMENTS
+   ========================================================================== */
+.project-card, .why-card, .testimonials-placeholder, .contact-panel, .cta-panel {
+    background-color: rgba(14, 11, 33, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-radius: var(--radius);
+}
