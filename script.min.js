@@ -126,31 +126,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 5. Mobile Slider Dots Synchronization (CSS Snap Scroll)
+    // 5. Mobile Slider Dots Synchronization (CSS Snap Scroll - Optimized Layout Reads)
     // ==========================================================================
     const projectsSlider = document.getElementById('projects-slider');
     const dotButtons = document.querySelectorAll('.dot-btn');
 
     if (projectsSlider && dotButtons.length > 0) {
+        let scrollPending = false;
+        let cachedWidth = projectsSlider.offsetWidth;
+
+        window.addEventListener('resize', () => {
+            cachedWidth = projectsSlider.offsetWidth;
+        });
+
         // Detect current slide on scroll
         projectsSlider.addEventListener('scroll', () => {
-            const width = projectsSlider.offsetWidth;
-            const scrollLeft = projectsSlider.scrollLeft;
-            const activeIndex = Math.round(scrollLeft / width);
+            if (!scrollPending) {
+                scrollPending = true;
+                requestAnimationFrame(() => {
+                    const scrollLeft = projectsSlider.scrollLeft;
+                    const activeIndex = Math.round(scrollLeft / (cachedWidth || 1));
 
-            dotButtons.forEach((dot, idx) => {
-                if (idx === activeIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
+                    dotButtons.forEach((dot, idx) => {
+                        if (idx === activeIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                    scrollPending = false;
+                });
+            }
         });
 
         // Click dots to scroll to slide
         dotButtons.forEach((dot, idx) => {
             dot.addEventListener('click', () => {
-                const width = projectsSlider.offsetWidth;
+                const width = cachedWidth || projectsSlider.offsetWidth;
                 projectsSlider.scrollTo({
                     left: width * idx,
                     behavior: 'smooth'
@@ -191,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. Interactive Mouse Glow Tracker for Cards (Optimized with Caching & Animation Frame Lock) - PC Only
     // ==========================================================================
     if (isDesktop) {
-        const hoverCards = document.querySelectorAll('.project-card, .why-card');
+        const hoverCards = document.querySelectorAll('.why-card');
         
         hoverCards.forEach(card => {
             let rect = null;

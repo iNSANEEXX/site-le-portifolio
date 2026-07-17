@@ -49,6 +49,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -347,6 +348,7 @@ textarea:focus-visible {
 .hero {
     padding: 180px 0 100px;
     position: relative;
+    overflow: hidden;
 }
 
 .hero-inner {
@@ -540,6 +542,8 @@ textarea:focus-visible {
 .section {
     padding: 120px 0;
     border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
 }
 
 .section-dark {
@@ -1369,7 +1373,7 @@ textarea.form-input {
 }
 
 /* Interactive light reflection that follows mouse on hover */
-.project-card::before, .why-card::before {
+.why-card::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1384,12 +1388,12 @@ textarea.form-input {
     z-index: 1;
 }
 
-.project-card:hover::before, .why-card:hover::before {
+.why-card:hover::before {
     opacity: 1;
 }
 
 /* Subtle border glow animation on card hover */
-.project-card::after, .why-card::after, .contact-panel::after, .cta-panel::after {
+.why-card::after, .contact-panel::after, .cta-panel::after {
     content: '';
     position: absolute;
     top: 0;
@@ -1403,7 +1407,7 @@ textarea.form-input {
     z-index: 5;
 }
 
-.project-card:hover::after, .why-card:hover::after, .contact-panel:hover::after, .cta-panel:hover::after {
+.why-card:hover::after, .contact-panel:hover::after, .cta-panel:hover::after {
     opacity: 0.8;
 }
 
