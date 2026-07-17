@@ -28,6 +28,10 @@
 </head>
 <body>
 
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+ 
     <!-- Sticky Navigation Header -->
     <header class="header" id="navbar">
         <div class="container header-inner">
@@ -38,10 +42,13 @@
             <nav class="nav" id="nav-links">
                 <a href="#inicio" class="nav-item active">Home</a>
                 <a href="#about" class="nav-item">About</a>
+                <a href="#services" class="nav-item">Services</a>
                 <a href="#work" class="nav-item">Featured Work</a>
                 <a href="#pricing" class="nav-item">Pricing</a>
+                <a href="#calculator" class="nav-item">ROI Calculator</a>
                 <a href="#why-me" class="nav-item">Why Me</a>
                 <a href="#process" class="nav-item">Process</a>
+                <a href="#faq" class="nav-item">FAQ</a>
                 <a href="#contact" class="nav-item">Contact</a>
             </nav>
 
@@ -60,10 +67,13 @@
             <div class="mobile-drawer-inner">
                 <a href="#inicio" class="mobile-link">Home</a>
                 <a href="#about" class="mobile-link">About</a>
+                <a href="#services" class="mobile-link">Services</a>
                 <a href="#work" class="mobile-link">Featured Work</a>
                 <a href="#pricing" class="mobile-link">Pricing</a>
+                <a href="#calculator" class="mobile-link">ROI Calculator</a>
                 <a href="#why-me" class="mobile-link">Why Me</a>
                 <a href="#process" class="mobile-link">Process</a>
+                <a href="#faq" class="mobile-link">FAQ</a>
                 <a href="#contact" class="mobile-link">Contact</a>
                 <a href="#contact" class="btn btn-purple btn-block mt-4">Start Project</a>
             </div>
@@ -540,6 +550,149 @@
                     <a href="#contact" class="btn btn-purple btn-lg mt-4">
                         <span>Start Your Project</span>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="section section-services texture-lines" id="services">
+            <div class="glow-orb orb-purple" style="top: 20%; left: -200px;"></div>
+            <div class="container">
+                <div class="section-top text-center">
+                    <span class="sub-tag">WHAT I OFFER</span>
+                    <h2>Premium Web Services</h2>
+                    <p>Tailored web design and conversion-focused front-end engineering built to help your business stand out and scale efficiently.</p>
+                </div>
+                <div class="why-me-grid">
+                    <div class="why-card magnetic-target">
+                        <div class="why-icon-wrap">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <h4>Bespoke UI/UX Design</h4>
+                        <p>Unique design concept layouts completely tailored to your brand identity. No boring, generic templates. Clean, modern, high-fidelity interfaces that build trust.</p>
+                    </div>
+                    <div class="why-card magnetic-target">
+                        <div class="why-icon-wrap">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        </div>
+                        <h4>Speed & SEO Optimization</h4>
+                        <p>Fast page loads under 1.0 second. Semantic clean HTML5 code built with SEO tags, proper structure, and responsive layout scaling to rank highly on search engines.</p>
+                    </div>
+                    <div class="why-card magnetic-target">
+                        <div class="why-icon-wrap">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </div>
+                        <h4>CRM & Lead Automation</h4>
+                        <p>Seamless integration of Web3Forms, WhatsApp, direct phone calls, email newsletters, and CRM dashboards to simplify lead collection and user interactions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Speed & ROI Calculator Section -->
+        <section class="section section-dark section-calculator texture-dots" id="calculator">
+            <div class="glow-orb orb-yellow" style="bottom: 10%; right: -250px;"></div>
+            <div class="container">
+                <div class="section-top text-center">
+                    <span class="sub-tag">CALCULATE VALUE</span>
+                    <h2>Speed & Lead Loss Calculator</h2>
+                    <p>A slow website directly leaks revenue. Drag the sliders below to calculate how much business you are losing due to poor loading times.</p>
+                </div>
+                
+                <div class="contact-panel calculator-panel">
+                    <div class="calculator-layout">
+                        <div class="calculator-inputs">
+                            <div class="form-group mb-4">
+                                <div class="slider-header">
+                                    <label for="traffic-input">Monthly Website Visitors</label>
+                                    <span class="slider-value" id="traffic-val">5,000</span>
+                                </div>
+                                <input type="range" id="traffic-input" min="500" max="50000" step="500" value="5000" class="calculator-slider">
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <div class="slider-header">
+                                    <label for="speed-input">Current Page Load Time (Seconds)</label>
+                                    <span class="slider-value" id="speed-val">4.5s</span>
+                                </div>
+                                <input type="range" id="speed-input" min="1.0" max="8.0" step="0.5" value="4.5" class="calculator-slider">
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <div class="slider-header">
+                                    <label for="contract-input">Average Contract Value / Sale ($)</label>
+                                    <span class="slider-value" id="contract-val">$500</span>
+                                </div>
+                                <input type="range" id="contract-input" min="100" max="10000" step="100" value="500" class="calculator-slider">
+                            </div>
+                        </div>
+                        
+                        <div class="calculator-results">
+                            <div class="result-box glow-purple">
+                                <span class="result-label">Estimated Lead Loss Yearly</span>
+                                <div class="result-number" id="leads-lost-val">0</div>
+                                <p class="result-desc">Inquiries lost due to user abandonment under slow speeds.</p>
+                            </div>
+                            <div class="result-box glow-yellow">
+                                <span class="result-label">Lost Revenue Yearly</span>
+                                <div class="result-number text-yellow" id="revenue-lost-val">$0</div>
+                                <p class="result-desc">Revenue recovered instantly with a sub-second bespoke design.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section section-faq texture-lines" id="faq">
+            <div class="container">
+                <div class="section-top text-center">
+                    <span class="sub-tag">COMMON QUESTIONS</span>
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Everything you need to know about my premium design standard, delivery process, and platform options.</p>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>Why choose custom code instead of WordPress or Webflow?</span>
+                            <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                        </button>
+                        <div class="faq-content">
+                            <p>WordPress and page builders inject huge amounts of bloated code, heavy plugins, and structural dependencies, causing your speed to drop. Custom HTML5/CSS/JS is fast, completely secure, highly optimized for Google search indexes, and will never break due to system updates.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>How long does a standard website project take?</span>
+                            <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                        </button>
+                        <div class="faq-content">
+                            <p>A single-page landing page (Starter Package) is typically delivered within 5-7 business days. A multi-section site (Standard Package) takes 10-14 days. This includes strategic mockup designs, writing clean front-end code, speed optimization, and final deployment setup.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>Do you handle web hosting and domains?</span>
+                            <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Yes. I guide you through pointing your domain registrar (Namecheap, GoDaddy) to premium hosts like Vercel or Netlify. I build on serverless architecture, which means hosting is completely free for standard traffic scales, while guaranteeing 99.9% uptime.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>Will the website look good on mobile devices?</span>
+                            <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Absolutely. Over 65% of local traffic comes from smartphones. Every website is built mobile-first, ensuring smooth scaling, readable fonts, and responsive layouts across all Android, iPhone, and desktop screens.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

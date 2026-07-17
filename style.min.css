@@ -1981,3 +1981,294 @@ textarea.form-input {
         transform: none !important;
     }
 }
+
+/* ==========================================================================
+   CUSTOM CURSOR
+   ========================================================================== */
+@media (pointer: fine) {
+    body.custom-cursor-active {
+        cursor: none;
+    }
+    body.custom-cursor-active a,
+    body.custom-cursor-active button,
+    body.custom-cursor-active input,
+    body.custom-cursor-active select,
+    body.custom-cursor-active textarea,
+    body.custom-cursor-active .project-card,
+    body.custom-cursor-active .why-card,
+    body.custom-cursor-active .faq-trigger {
+        cursor: none;
+    }
+    
+    .cursor-dot, .cursor-outline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 10000;
+        pointer-events: none;
+        transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        mix-blend-mode: difference;
+    }
+    
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #FFFFFF;
+    }
+    
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    body.custom-cursor-active .cursor-dot.hover {
+        width: 14px;
+        height: 14px;
+        background-color: var(--yellow);
+    }
+    
+    body.custom-cursor-active .cursor-outline.hover {
+        width: 60px;
+        height: 60px;
+        border-color: var(--purple);
+        border-width: 2px;
+    }
+}
+
+@media (pointer: coarse) {
+    .cursor-dot, .cursor-outline {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   MAGNETIC TRANSITIONS
+   ========================================================================== */
+.btn, .why-card, .project-card, .brand-logo-link {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
+}
+
+/* ==========================================================================
+   SERVICES ADDITIONS
+   ========================================================================== */
+.section-services {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   ROI CALCULATOR SECTION
+   ========================================================================== */
+.section-calculator {
+    position: relative;
+    overflow: hidden;
+}
+
+.calculator-panel {
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: rgba(18, 15, 31, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.calculator-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.slider-header label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.slider-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--yellow);
+}
+
+.calculator-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: var(--border);
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.calculator-slider:hover {
+    background: var(--border-hover);
+}
+
+.calculator-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--purple-glow);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.calculator-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: var(--yellow);
+    box-shadow: 0 0 15px var(--yellow-glow);
+}
+
+.calculator-results {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.result-box {
+    background-color: rgba(6, 4, 10, 0.6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.result-box.glow-purple {
+    border-color: rgba(124, 58, 237, 0.2);
+}
+.result-box.glow-purple:hover {
+    border-color: var(--purple);
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+}
+
+.result-box.glow-yellow {
+    border-color: rgba(208, 255, 0, 0.2);
+}
+.result-box.glow-yellow:hover {
+    border-color: var(--yellow);
+    box-shadow: 0 10px 30px rgba(208, 255, 0, 0.1);
+}
+
+.result-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.result-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.result-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+@media (max-width: 768px) {
+    .calculator-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+/* ==========================================================================
+   FAQ SECTION
+   ========================================================================== */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.faq-item {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-item:hover {
+    border-color: var(--purple);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.faq-trigger {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    background: none;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #FFFFFF;
+    transition: var(--transition);
+}
+
+.faq-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--purple);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+    color: var(--yellow);
+}
+
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0 24px;
+}
+
+.faq-item.active .faq-content {
+    padding-bottom: 24px;
+}
+
+.faq-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 300;
+}
+

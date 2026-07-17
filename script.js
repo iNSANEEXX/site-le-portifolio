@@ -271,4 +271,197 @@ document.addEventListener('DOMContentLoaded', () => {
             countUpObserver.observe(num);
         });
     }
+
+    // ==========================================================================
+    // 10. Premium Custom Cursor Engine (Lerp Movement & Inverse Blend)
+    // ==========================================================================
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    let mouseX = 0, mouseY = 0;
+    let outlineX = 0, outlineY = 0;
+    let cursorActive = false;
+
+    if (cursorDot && cursorOutline) {
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (!cursorActive) {
+                document.body.classList.add('custom-cursor-active');
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+                cursorActive = true;
+            }
+
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        // Smooth outline tracking using RequestAnimationFrame (lerp)
+        const animateCursorOutline = () => {
+            const ease = 0.15; // smooth lag factor
+            outlineX += (mouseX - outlineX) * ease;
+            outlineY += (mouseY - outlineY) * ease;
+
+            cursorOutline.style.left = `${outlineX}px`;
+            cursorOutline.style.top = `${outlineY}px`;
+
+            requestAnimationFrame(animateCursorOutline);
+        };
+        requestAnimationFrame(animateCursorOutline);
+
+        // Hover expansions
+        const hoverTargets = document.querySelectorAll('a, button, input, select, textarea, .project-card, .why-card, .faq-trigger');
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('hover');
+                cursorOutline.classList.add('hover');
+            });
+            target.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('hover');
+                cursorOutline.classList.remove('hover');
+            });
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            document.body.classList.remove('custom-cursor-active');
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+            cursorActive = false;
+        });
+    }
+
+    // ==========================================================================
+    // 11. Reusable Magnetic Elements Engine
+    // ==========================================================================
+    const magneticTargets = document.querySelectorAll('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
+    
+    magneticTargets.forEach(target => {
+        target.addEventListener('mousemove', (e) => {
+            const rect = target.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const distanceX = e.clientX - centerX;
+            const distanceY = e.clientY - centerY;
+
+            // Pull element 25% of the distance towards the mouse
+            target.style.transform = `translate3d(${distanceX * 0.25}px, ${distanceY * 0.25}px, 0) scale(1.03)`;
+        });
+
+        target.addEventListener('mouseleave', () => {
+            // Reset position smoothly
+            target.style.transform = 'translate3d(0, 0, 0) scale(1)';
+        });
+    });
+
+    // ==========================================================================
+    // 12. Speed & Lead ROI Calculator Engine
+    // ==========================================================================
+    const trafficInput = document.getElementById('traffic-input');
+    const speedInput = document.getElementById('speed-input');
+    const contractInput = document.getElementById('contract-input');
+
+    const trafficVal = document.getElementById('traffic-val');
+    const speedVal = document.getElementById('speed-val');
+    const contractVal = document.getElementById('contract-val');
+
+    const leadsLostVal = document.getElementById('leads-lost-val');
+    const revenueLostVal = document.getElementById('revenue-lost-val');
+
+    if (trafficInput && speedInput && contractInput) {
+        const formatNumber = (num) => {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        };
+
+        const calculateROI = () => {
+            const traffic = parseInt(trafficInput.value);
+            const speed = parseFloat(speedInput.value);
+            const contract = parseInt(contractInput.value);
+
+            // Update UI text values
+            trafficVal.textContent = formatNumber(traffic);
+            speedVal.textContent = `${speed.toFixed(1)}s`;
+            contractVal.textContent = `$${formatNumber(contract)}`;
+
+            // Calculation
+            // Baseline conversion rate at 1.0s is 2.5%
+            // Loss of 7% conversion rate per second above 1.0s
+            const baselineRate = 0.025;
+            const delay = Math.max(0, speed - 1.0);
+            const conversionLossFactor = Math.min(0.9, delay * 0.07);
+            
+            const fastLeadsMonthly = traffic * baselineRate;
+            const actualLeadsMonthly = fastLeadsMonthly * (1 - conversionLossFactor);
+            const leadsLostMonthly = fastLeadsMonthly - actualLeadsMonthly;
+            
+            const yearlyLeadsLost = Math.round(leadsLostMonthly * 12);
+            // Assumes a 15% lead-to-client closing rate for local niches
+            const closeRate = 0.15;
+            const yearlyRevenueLost = Math.round(yearlyLeadsLost * contract * closeRate);
+
+            // Animate counters instead of immediate updates
+            animateCounter(leadsLostVal, yearlyLeadsLost);
+            animateCounter(revenueLostVal, yearlyRevenueLost, '$');
+        };
+
+        const animateCounter = (element, targetValue, prefix = '') => {
+            const startValue = parseInt(element.textContent.replace(/[^0-9]/g, '')) || 0;
+            const duration = 400; // fast animation
+            const startTime = performance.now();
+
+            const update = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const currentValue = Math.round(startValue + (targetValue - startValue) * progress);
+                
+                element.textContent = prefix + formatNumber(currentValue);
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            };
+            requestAnimationFrame(update);
+        };
+
+        trafficInput.addEventListener('input', calculateROI);
+        speedInput.addEventListener('input', calculateROI);
+        contractInput.addEventListener('input', calculateROI);
+
+        // Initial run
+        calculateROI();
+    }
+
+    // ==========================================================================
+    // 13. Interactive FAQ Accordion Trigger
+    // ==========================================================================
+    const faqTriggers = document.querySelectorAll('.faq-trigger');
+
+    faqTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const item = trigger.closest('.faq-item');
+            const content = item.querySelector('.faq-content');
+            const isActive = item.classList.contains('active');
+
+            // Close all other FAQ items for a clean experience
+            document.querySelectorAll('.faq-item').forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.faq-content').style.maxHeight = '0px';
+                    otherItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Toggle current item
+            if (isActive) {
+                item.classList.remove('active');
+                content.style.maxHeight = '0px';
+                trigger.setAttribute('aria-expanded', 'false');
+            } else {
+                item.classList.add('active');
+                content.style.maxHeight = `${content.scrollHeight}px`;
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
 });
