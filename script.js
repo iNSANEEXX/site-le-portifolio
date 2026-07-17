@@ -188,28 +188,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 7. Interactive Mouse Glow Tracker for Cards (Optimized with Caching) - PC Only
+    // 7. Interactive Mouse Glow Tracker for Cards (Optimized with Caching & Animation Frame Lock) - PC Only
     // ==========================================================================
     if (isDesktop) {
         const hoverCards = document.querySelectorAll('.project-card, .why-card');
         
         hoverCards.forEach(card => {
             let rect = null;
+            let mouseMovePending = false;
+            let currentX = 0;
+            let currentY = 0;
             
             card.addEventListener('mouseenter', () => {
                 rect = card.getBoundingClientRect();
             });
 
             card.addEventListener('mousemove', (e) => {
-                if (!rect) rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
+                currentX = e.clientX;
+                currentY = e.clientY;
+                
+                if (!mouseMovePending) {
+                    mouseMovePending = true;
+                    requestAnimationFrame(() => {
+                        if (rect) {
+                            const x = currentX - rect.left;
+                            const y = currentY - rect.top;
+                            card.style.setProperty('--mouse-x', `${x}px`);
+                            card.style.setProperty('--mouse-y', `${y}px`);
+                        }
+                        mouseMovePending = false;
+                    });
+                }
             });
 
             card.addEventListener('mouseleave', () => {
                 rect = null;
+                mouseMovePending = false;
             });
         });
     }
@@ -287,15 +301,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 10. Premium Custom Cursor Engine (Lerp Movement & Inverse Blend) - GPU Optimized
+    // 10. Premium Custom Cursor Engine (Lerp, Consolidated Loop & Idle Sleep) - GPU Optimized - PC Only
     // ==========================================================================
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
     let mouseX = 0, mouseY = 0;
     let outlineX = 0, outlineY = 0;
     let cursorActive = false;
+    let cursorAnimating = false;
 
     if (isDesktop && cursorDot && cursorOutline) {
+        const updateCursor = () => {
+            // Position the dot
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+
+            // Position outline with lag interpolation (lerp)
+            const ease = 0.15;
+            const dx = mouseX - outlineX;
+            const dy = mouseY - outlineY;
+            outlineX += dx * ease;
+            outlineY += dy * ease;
+            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+
+            // If outline has not fully caught up, keep animating. Otherwise, pause loop to save CPU cycles.
+            if (Math.abs(dx) > 0.05 || Math.abs(dy) > 0.05) {
+                requestAnimationFrame(updateCursor);
+            } else {
+                cursorAnimating = false;
+                outlineX = mouseX;
+                outlineY = mouseY;
+            }
+        };
+
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -307,22 +344,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 cursorActive = true;
             }
 
-            // Using translate3d for GPU compositor acceleration
-            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+            if (!cursorAnimating) {
+                cursorAnimating = true;
+                requestAnimationFrame(updateCursor);
+            }
         });
-
-        // Smooth outline tracking using RequestAnimationFrame (lerp)
-        const animateCursorOutline = () => {
-            const ease = 0.15; // smooth lag factor
-            outlineX += (mouseX - outlineX) * ease;
-            outlineY += (mouseY - outlineY) * ease;
-
-            // Using translate3d for GPU compositor acceleration
-            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
-
-            requestAnimationFrame(animateCursorOutline);
-        };
-        requestAnimationFrame(animateCursorOutline);
 
         // Hover expansions
         const hoverTargets = document.querySelectorAll('a, button, input, select, textarea, .project-card, .why-card, .faq-trigger');
@@ -343,17 +369,21 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorDot.style.opacity = '0';
             cursorOutline.style.opacity = '0';
             cursorActive = false;
+            cursorAnimating = false;
         });
     }
 
     // ==========================================================================
-    // 11. Reusable Magnetic Elements Engine (Optimized with Caching and Transition Overrides) - PC Only
+    // 11. Reusable Magnetic Elements Engine (Optimized with Frame Lock & Transitions) - PC Only
     // ==========================================================================
     if (isDesktop) {
         const magneticTargets = document.querySelectorAll('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
         
         magneticTargets.forEach(target => {
             let rect = null;
+            let mouseMovePending = false;
+            let currentX = 0;
+            let currentY = 0;
     
             target.addEventListener('mouseenter', () => {
                 rect = target.getBoundingClientRect();
@@ -361,18 +391,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     
             target.addEventListener('mousemove', (e) => {
-                if (!rect) rect = target.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const distanceX = e.clientX - centerX;
-                const distanceY = e.clientY - centerY;
-    
-                // Pull element 25% of the distance towards the mouse
-                target.style.transform = `translate3d(${distanceX * 0.25}px, ${distanceY * 0.25}px, 0) scale(1.03)`;
+                currentX = e.clientX;
+                currentY = e.clientY;
+                
+                if (!mouseMovePending) {
+                    mouseMovePending = true;
+                    requestAnimationFrame(() => {
+                        if (rect) {
+                            const centerX = rect.left + rect.width / 2;
+                            const centerY = rect.top + rect.height / 2;
+                            const distanceX = currentX - centerX;
+                            const distanceY = currentY - centerY;
+                
+                            // Pull element 25% of the distance towards the mouse
+                            target.style.transform = `translate3d(${distanceX * 0.25}px, ${distanceY * 0.25}px, 0) scale(1.03)`;
+                        }
+                        mouseMovePending = false;
+                    });
+                }
             });
     
             target.addEventListener('mouseleave', () => {
                 rect = null;
+                mouseMovePending = false;
                 // Restore transitions for smooth return snapback
                 target.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
                 target.style.transform = 'translate3d(0, 0, 0) scale(1)';
