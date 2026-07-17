@@ -1282,32 +1282,82 @@ textarea.form-input {
     filter: blur(150px);
     pointer-events: none;
     z-index: 1;
-    opacity: 0.08;
-    animation: floatOrb 25s infinite ease-in-out alternate;
+    opacity: 0.11;
+    will-change: transform, border-radius;
 }
 
 .orb-purple {
     background: radial-gradient(circle, var(--purple) 0%, transparent 70%);
     top: 5%;
     left: -200px;
+    animation: liquidPurple 32s infinite ease-in-out alternate;
 }
 
 .orb-yellow {
     background: radial-gradient(circle, var(--yellow) 0%, transparent 70%);
     bottom: 15%;
     right: -200px;
-    animation-delay: -12.5s;
+    animation: liquidYellow 38s infinite ease-in-out alternate;
+    animation-delay: -10s;
 }
 
-@keyframes floatOrb {
+.orb-blue {
+    background: radial-gradient(circle, #00f2fe 0%, transparent 70%);
+    top: 30%;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    animation: liquidBlue 45s infinite ease-in-out alternate;
+    animation-delay: -5s;
+    opacity: 0.09;
+}
+
+@keyframes liquidPurple {
     0% {
-        transform: translate(0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
     }
-    50% {
-        transform: translate(90px, -70px) scale(1.1);
+    33% {
+        transform: translate3d(80px, -60px, 0) scale(1.12) rotate(120deg);
+        border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%;
+    }
+    66% {
+        transform: translate3d(-40px, 90px, 0) scale(0.9) rotate(240deg);
+        border-radius: 28% 72% 35% 65% / 35% 65% 35% 65%;
     }
     100% {
-        transform: translate(-45px, 45px) scale(0.95);
+        transform: translate3d(0, 0, 0) scale(1) rotate(360deg);
+        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    }
+}
+
+@keyframes liquidYellow {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+        border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%;
+    }
+    50% {
+        transform: translate3d(-100px, 80px, 0) scale(1.15) rotate(-180deg);
+        border-radius: 30% 70% 70% 30% / 50% 30% 70% 50%;
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(-360deg);
+        border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%;
+    }
+}
+
+@keyframes liquidBlue {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.9) rotate(0deg);
+        border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    }
+    50% {
+        transform: translate3d(70px, -90px, 0) scale(1.1) rotate(180deg);
+        border-radius: 65% 35% 38% 62% / 65% 48% 52% 35%;
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(0.9) rotate(360deg);
+        border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
     }
 }
 
