@@ -186,17 +186,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 7. Interactive Mouse Glow Tracker for Cards
+    // 7. Interactive Mouse Glow Tracker for Cards (Optimized with Caching)
     // ==========================================================================
     const hoverCards = document.querySelectorAll('.project-card, .why-card');
     
     hoverCards.forEach(card => {
+        let rect = null;
+        
+        card.addEventListener('mouseenter', () => {
+            rect = card.getBoundingClientRect();
+        });
+
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
+            if (!rect) rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             card.style.setProperty('--mouse-x', `${x}px`);
             card.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            rect = null;
         });
     });
 
@@ -273,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 10. Premium Custom Cursor Engine (Lerp Movement & Inverse Blend)
+    // 10. Premium Custom Cursor Engine (Lerp Movement & Inverse Blend) - GPU Optimized
     // ==========================================================================
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
@@ -293,8 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 cursorActive = true;
             }
 
-            cursorDot.style.left = `${mouseX}px`;
-            cursorDot.style.top = `${mouseY}px`;
+            // Using translate3d for GPU compositor acceleration
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
         });
 
         // Smooth outline tracking using RequestAnimationFrame (lerp)
@@ -303,8 +313,8 @@ document.addEventListener('DOMContentLoaded', () => {
             outlineX += (mouseX - outlineX) * ease;
             outlineY += (mouseY - outlineY) * ease;
 
-            cursorOutline.style.left = `${outlineX}px`;
-            cursorOutline.style.top = `${outlineY}px`;
+            // Using translate3d for GPU compositor acceleration
+            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
 
             requestAnimationFrame(animateCursorOutline);
         };
@@ -333,13 +343,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 11. Reusable Magnetic Elements Engine
+    // 11. Reusable Magnetic Elements Engine (Optimized with Caching and Transition Overrides)
     // ==========================================================================
     const magneticTargets = document.querySelectorAll('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
     
     magneticTargets.forEach(target => {
+        let rect = null;
+
+        target.addEventListener('mouseenter', () => {
+            rect = target.getBoundingClientRect();
+            target.style.transition = 'none'; // Temporarily disable transitions during raw tracking to prevent fighting
+        });
+
         target.addEventListener('mousemove', (e) => {
-            const rect = target.getBoundingClientRect();
+            if (!rect) rect = target.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             const distanceX = e.clientX - centerX;
@@ -350,7 +367,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         target.addEventListener('mouseleave', () => {
-            // Reset position smoothly
+            rect = null;
+            // Restore transitions for smooth return snapback
+            target.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
             target.style.transform = 'translate3d(0, 0, 0) scale(1)';
         });
     });
