@@ -1291,23 +1291,21 @@ textarea.form-input {
     position: absolute;
     width: 600px;
     height: 600px;
-    border-radius: 50%;
-    filter: blur(150px);
     pointer-events: none;
     z-index: 1;
-    opacity: 0.23;
+    opacity: 0.25;
     will-change: transform;
 }
 
 .orb-purple {
-    background: radial-gradient(circle, var(--purple) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, rgba(124, 58, 237, 0.05) 50%, transparent 70%);
     top: 5%;
     left: -200px;
     animation: liquidPurple 32s infinite ease-in-out alternate;
 }
 
 .orb-yellow {
-    background: radial-gradient(circle, var(--yellow) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(208, 255, 0, 0.2) 0%, rgba(208, 255, 0, 0.04) 50%, transparent 70%);
     bottom: 15%;
     right: -200px;
     animation: liquidYellow 38s infinite ease-in-out alternate;
@@ -1315,14 +1313,14 @@ textarea.form-input {
 }
 
 .orb-blue {
-    background: radial-gradient(circle, #00f2fe 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.2) 0%, rgba(0, 242, 254, 0.04) 50%, transparent 70%);
     top: 30%;
     right: -150px;
     width: 500px;
     height: 500px;
     animation: liquidBlue 45s infinite ease-in-out alternate;
     animation-delay: -5s;
-    opacity: 0.09;
+    opacity: 0.2;
 }
 
 @keyframes liquidPurple {
@@ -1368,7 +1366,6 @@ textarea.form-input {
     position: relative;
     background-color: var(--bg-surface);
     border: 1px solid var(--border);
-    backdrop-filter: blur(8px);
 }
 
 /* Interactive light reflection that follows mouse on hover */
@@ -2464,9 +2461,7 @@ textarea.form-input {
    GLASSMORPHISM CARD REFINEMENTS
    ========================================================================== */
 .project-card, .why-card, .testimonials-placeholder, .contact-panel, .cta-panel {
-    background-color: rgba(14, 11, 33, 0.45) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
+    background-color: rgba(14, 11, 33, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
     border-radius: var(--radius);
 }
