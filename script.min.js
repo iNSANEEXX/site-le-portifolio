@@ -8,80 +8,113 @@ document.addEventListener('DOMContentLoaded', () => {
     const isDesktop = window.matchMedia('(pointer: fine)').matches;
 
     // ==========================================================================
-    // 1. Sticky Header Transform on Scroll
+    // 1 & 2. Throttled Sticky Header & Cached Active Nav Link Highlighting
     // ==========================================================================
     const navbar = document.getElementById('navbar');
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('.nav-item');
     
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+    let cachedSectionOffsets = [];
+
+    // Cache section dimensions to prevent layout thrashing (forced reflow) on scroll
+    const cacheSectionDimensions = () => {
+        cachedSectionOffsets = Array.from(sections).map(section => {
+            const top = section.offsetTop;
+            return {
+                id: section.getAttribute('id'),
+                top: top,
+                bottom: top + section.offsetHeight
+            };
+        });
+    };
+
+    cacheSectionDimensions();
+    window.addEventListener('resize', cacheSectionDimensions);
+
+    let scrollPending = false;
+    const updateScrollEvents = () => {
+        const scrollY = window.scrollY;
+
+        // Sticky header toggle
+        if (scrollY > 50) {
             navbar.classList.add('sticky');
         } else {
             navbar.classList.remove('sticky');
         }
-    });
 
-    // ==========================================================================
-    // 2. Active Section Highlighting on Nav Links
-    // ==========================================================================
-    const sections = document.querySelectorAll('section[id]');
-    const navItems = document.querySelectorAll('.nav-item');
-
-    window.addEventListener('scroll', () => {
+        // Active navigation item highlighting
         let currentSection = '';
-        const scrollPosition = window.scrollY + 120; // offset header height
+        const scrollPosition = scrollY + 120; // offset header height
 
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (scrollPosition >= sectionTop && scrollPosition < (sectionTop + sectionHeight)) {
-                currentSection = section.getAttribute('id');
+        for (let i = 0; i < cachedSectionOffsets.length; i++) {
+            const sec = cachedSectionOffsets[i];
+            if (scrollPosition >= sec.top && scrollPosition < sec.bottom) {
+                currentSection = sec.id;
+                break;
             }
-        });
+        }
 
         navItems.forEach(item => {
-            item.classList.remove('active');
             if (item.getAttribute('href') === `#${currentSection}`) {
                 item.classList.add('active');
+            } else {
+                item.classList.remove('active');
             }
         });
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!scrollPending) {
+            scrollPending = true;
+            requestAnimationFrame(() => {
+                updateScrollEvents();
+                scrollPending = false;
+            });
+        }
     });
 
     // ==========================================================================
-    // 3. Mobile Navigation Drawer Toggle
+    // 3. Mobile Navigation Drawer Toggle (Memory Safe Event Listeners)
     // ==========================================================================
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileDrawer = document.getElementById('mobile-drawer');
     const mobileLinks = document.querySelectorAll('.mobile-link');
 
     if (mobileMenuBtn && mobileDrawer) {
+        const closeDrawerOnOutsideClick = (e) => {
+            if (!mobileDrawer.contains(e.target) && e.target !== mobileMenuBtn) {
+                closeDrawer();
+            }
+        };
+
+        const openDrawer = () => {
+            mobileDrawer.classList.add('active');
+            const iconSvg = mobileMenuBtn.querySelector('svg');
+            iconSvg.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+            document.addEventListener('click', closeDrawerOnOutsideClick);
+        };
+
+        const closeDrawer = () => {
+            mobileDrawer.classList.remove('active');
+            const iconSvg = mobileMenuBtn.querySelector('svg');
+            iconSvg.innerHTML = '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            document.removeEventListener('click', closeDrawerOnOutsideClick);
+        };
+
         // Toggle menu drawer
         mobileMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            mobileDrawer.classList.toggle('active');
-            // Change menu icon to close cross state
-            const iconSvg = mobileMenuBtn.querySelector('svg');
             if (mobileDrawer.classList.contains('active')) {
-                iconSvg.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+                closeDrawer();
             } else {
-                iconSvg.innerHTML = '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
-            }
-        });
-
-        // Close drawer clicking anywhere else
-        document.addEventListener('click', (e) => {
-            if (!mobileDrawer.contains(e.target) && e.target !== mobileMenuBtn) {
-                mobileDrawer.classList.remove('active');
-                const iconSvg = mobileMenuBtn.querySelector('svg');
-                iconSvg.innerHTML = '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+                openDrawer();
             }
         });
 
         // Close drawer clicking a link
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
-                mobileDrawer.classList.remove('active');
-                const iconSvg = mobileMenuBtn.querySelector('svg');
-                iconSvg.innerHTML = '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+                closeDrawer();
             });
         });
     }
@@ -324,6 +357,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isDesktop && cursorDot && cursorOutline) {
         const updateCursor = () => {
+            if (!cursorActive) {
+                cursorAnimating = false;
+                return;
+            }
+
             // Position the dot
             cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
 
@@ -484,6 +522,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const animateCounter = (element, targetValue, prefix = '') => {
+            // Cancel any ongoing frame to prevent overlapping rendering loops
+            if (element.activeAnimationFrameId) {
+                cancelAnimationFrame(element.activeAnimationFrameId);
+            }
+
             const startValue = parseInt(element.textContent.replace(/[^0-9]/g, '')) || 0;
             const duration = 400; // fast animation
             const startTime = performance.now();
@@ -496,10 +539,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 element.textContent = prefix + formatNumber(currentValue);
 
                 if (progress < 1) {
-                    requestAnimationFrame(update);
+                    element.activeAnimationFrameId = requestAnimationFrame(update);
+                } else {
+                    element.activeAnimationFrameId = null;
                 }
             };
-            requestAnimationFrame(update);
+            element.activeAnimationFrameId = requestAnimationFrame(update);
         };
 
         trafficInput.addEventListener('input', calculateROI);
