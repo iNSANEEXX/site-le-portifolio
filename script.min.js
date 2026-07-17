@@ -232,46 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(section);
     });
 
-    // ==========================================================================
-    // 7. Interactive Mouse Glow Tracker for Cards (Optimized with Caching & Animation Frame Lock) - PC Only
-    // ==========================================================================
-    if (isDesktop) {
-        const hoverCards = document.querySelectorAll('.why-card');
-        
-        hoverCards.forEach(card => {
-            let rect = null;
-            let mouseMovePending = false;
-            let currentX = 0;
-            let currentY = 0;
-            
-            card.addEventListener('mouseenter', () => {
-                rect = card.getBoundingClientRect();
-            });
 
-            card.addEventListener('mousemove', (e) => {
-                currentX = e.clientX;
-                currentY = e.clientY;
-                
-                if (!mouseMovePending) {
-                    mouseMovePending = true;
-                    requestAnimationFrame(() => {
-                        if (rect) {
-                            const x = currentX - rect.left;
-                            const y = currentY - rect.top;
-                            card.style.setProperty('--mouse-x', `${x}px`);
-                            card.style.setProperty('--mouse-y', `${y}px`);
-                        }
-                        mouseMovePending = false;
-                    });
-                }
-            });
-
-            card.addEventListener('mouseleave', () => {
-                rect = null;
-                mouseMovePending = false;
-            });
-        });
-    }
 
     // ==========================================================================
     // 8. Dynamic Header Word Alternator (Typing Effect)

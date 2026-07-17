@@ -1401,18 +1401,18 @@ textarea.form-input {
     border: 1px solid var(--border);
 }
 
-/* Interactive light reflection that follows mouse on hover */
+/* Premium static light reflection on hover */
 .why-card::before {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(
-        250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(255, 255, 255, 0.08),
+        300px circle at 50% 50%,
+        rgba(255, 255, 255, 0.04),
         transparent 60%
     );
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
     pointer-events: none;
     z-index: 1;
 }
@@ -2040,7 +2040,6 @@ textarea.form-input {
         z-index: 10000;
         pointer-events: none;
         transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-        mix-blend-mode: difference;
         will-change: transform;
     }
     
@@ -2048,24 +2047,26 @@ textarea.form-input {
         width: 8px;
         height: 8px;
         background-color: #FFFFFF;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
     }
     
     .cursor-outline {
         width: 40px;
         height: 40px;
-        border: 1.5px solid rgba(255, 255, 255, 0.5);
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
     }
     
     body.custom-cursor-active .cursor-dot.hover {
         width: 14px;
         height: 14px;
-        background-color: var(--yellow);
+        background-color: #FFFFFF;
     }
     
     body.custom-cursor-active .cursor-outline.hover {
         width: 60px;
         height: 60px;
-        border-color: var(--purple);
+        border-color: rgba(255, 255, 255, 0.8);
         border-width: 2px;
     }
 }
