@@ -1295,8 +1295,8 @@ textarea.form-input {
     filter: blur(150px);
     pointer-events: none;
     z-index: 1;
-    opacity: 0.11;
-    will-change: transform, border-radius;
+    opacity: 0.23;
+    will-change: transform;
 }
 
 .orb-purple {
@@ -1427,14 +1427,14 @@ textarea.form-input {
 }
 
 .texture-dots::before {
-    background-image: radial-gradient(rgba(208, 255, 0, 0.02) 1.5px, transparent 1.5px);
+    background-image: radial-gradient(rgba(208, 255, 0, 0.065) 1.5px, transparent 1.5px);
     background-size: 24px 24px;
 }
 
 .texture-lines::before {
     background-image: 
-        linear-gradient(rgba(124, 58, 237, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124, 58, 237, 0.015) 1px, transparent 1px);
+        linear-gradient(rgba(124, 58, 237, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
     background-size: 50px 50px;
 }
 
@@ -2450,8 +2450,8 @@ textarea.form-input {
     position: absolute;
     inset: 0;
     background-image: 
-        linear-gradient(rgba(124, 58, 237, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
+        linear-gradient(rgba(124, 58, 237, 0.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.075) 1px, transparent 1px);
     background-size: 40px 40px;
     background-position: center;
     mask-image: radial-gradient(circle at center, black 40%, transparent 80%);

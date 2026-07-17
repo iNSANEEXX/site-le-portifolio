@@ -5,6 +5,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    const isDesktop = window.matchMedia('(pointer: fine)').matches;
+
     // ==========================================================================
     // 1. Sticky Header Transform on Scroll
     // ==========================================================================
@@ -186,29 +188,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 7. Interactive Mouse Glow Tracker for Cards (Optimized with Caching)
+    // 7. Interactive Mouse Glow Tracker for Cards (Optimized with Caching) - PC Only
     // ==========================================================================
-    const hoverCards = document.querySelectorAll('.project-card, .why-card');
-    
-    hoverCards.forEach(card => {
-        let rect = null;
+    if (isDesktop) {
+        const hoverCards = document.querySelectorAll('.project-card, .why-card');
         
-        card.addEventListener('mouseenter', () => {
-            rect = card.getBoundingClientRect();
-        });
+        hoverCards.forEach(card => {
+            let rect = null;
+            
+            card.addEventListener('mouseenter', () => {
+                rect = card.getBoundingClientRect();
+            });
 
-        card.addEventListener('mousemove', (e) => {
-            if (!rect) rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
+            card.addEventListener('mousemove', (e) => {
+                if (!rect) rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
 
-        card.addEventListener('mouseleave', () => {
-            rect = null;
+            card.addEventListener('mouseleave', () => {
+                rect = null;
+            });
         });
-    });
+    }
 
     // ==========================================================================
     // 8. Dynamic Header Word Alternator (Typing Effect)
@@ -291,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let outlineX = 0, outlineY = 0;
     let cursorActive = false;
 
-    if (cursorDot && cursorOutline) {
+    if (isDesktop && cursorDot && cursorOutline) {
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -343,36 +347,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 11. Reusable Magnetic Elements Engine (Optimized with Caching and Transition Overrides)
+    // 11. Reusable Magnetic Elements Engine (Optimized with Caching and Transition Overrides) - PC Only
     // ==========================================================================
-    const magneticTargets = document.querySelectorAll('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
+    if (isDesktop) {
+        const magneticTargets = document.querySelectorAll('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
+        
+        magneticTargets.forEach(target => {
+            let rect = null;
     
-    magneticTargets.forEach(target => {
-        let rect = null;
-
-        target.addEventListener('mouseenter', () => {
-            rect = target.getBoundingClientRect();
-            target.style.transition = 'none'; // Temporarily disable transitions during raw tracking to prevent fighting
+            target.addEventListener('mouseenter', () => {
+                rect = target.getBoundingClientRect();
+                target.style.transition = 'none'; // Temporarily disable transitions during raw tracking to prevent fighting
+            });
+    
+            target.addEventListener('mousemove', (e) => {
+                if (!rect) rect = target.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const distanceX = e.clientX - centerX;
+                const distanceY = e.clientY - centerY;
+    
+                // Pull element 25% of the distance towards the mouse
+                target.style.transform = `translate3d(${distanceX * 0.25}px, ${distanceY * 0.25}px, 0) scale(1.03)`;
+            });
+    
+            target.addEventListener('mouseleave', () => {
+                rect = null;
+                // Restore transitions for smooth return snapback
+                target.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
+                target.style.transform = 'translate3d(0, 0, 0) scale(1)';
+            });
         });
-
-        target.addEventListener('mousemove', (e) => {
-            if (!rect) rect = target.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const distanceX = e.clientX - centerX;
-            const distanceY = e.clientY - centerY;
-
-            // Pull element 25% of the distance towards the mouse
-            target.style.transform = `translate3d(${distanceX * 0.25}px, ${distanceY * 0.25}px, 0) scale(1.03)`;
-        });
-
-        target.addEventListener('mouseleave', () => {
-            rect = null;
-            // Restore transitions for smooth return snapback
-            target.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
-            target.style.transform = 'translate3d(0, 0, 0) scale(1)';
-        });
-    });
+    }
 
     // ==========================================================================
     // 12. Speed & Lead ROI Calculator Engine
