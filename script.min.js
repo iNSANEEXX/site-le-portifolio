@@ -170,23 +170,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 5. Mobile Slider Dots Synchronization (CSS Snap Scroll - Optimized Layout Reads)
+    // 5. Mobile Slider Dots Synchronization + Swipe Hint Auto-hide
     // ==========================================================================
     const projectsSlider = document.getElementById('projects-slider');
     const dotButtons = document.querySelectorAll('.dot-btn');
+    const swipeHint = document.getElementById('swipe-hint');
+    let swipeHintHidden = false;
 
     if (projectsSlider && dotButtons.length > 0) {
-        let scrollPending = false;
+        let sliderScrollPending = false;
         let cachedWidth = projectsSlider.offsetWidth;
 
         window.addEventListener('resize', () => {
             cachedWidth = projectsSlider.offsetWidth;
         });
 
-        // Detect current slide on scroll
+        // Detect current slide on scroll and hide swipe hint on first interaction
         projectsSlider.addEventListener('scroll', () => {
-            if (!scrollPending) {
-                scrollPending = true;
+            // Hide swipe hint on first scroll — user already knows how to swipe
+            if (!swipeHintHidden && swipeHint && projectsSlider.scrollLeft > 10) {
+                swipeHintHidden = true;
+                swipeHint.classList.add('hidden');
+            }
+
+            if (!sliderScrollPending) {
+                sliderScrollPending = true;
                 requestAnimationFrame(() => {
                     const scrollLeft = projectsSlider.scrollLeft;
                     const activeIndex = Math.round(scrollLeft / (cachedWidth || 1));
@@ -198,10 +206,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             dot.classList.remove('active');
                         }
                     });
-                    scrollPending = false;
+                    sliderScrollPending = false;
                 });
             }
-        });
+        }, { passive: true }); // passive: true melhora FPS no scroll em mobile
 
         // Click dots to scroll to slide
         dotButtons.forEach((dot, idx) => {
@@ -559,4 +567,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ==========================================================================
+    // 14. Page Visibility API — Pausa animações pesadas quando aba fica oculta
+    // Economiza CPU/GPU/bateria no mobile e em notebooks
+    // ==========================================================================
+    const topoBackground = document.querySelector('.topo-background');
+    const glowOrbs = document.querySelectorAll('.glow-orb');
+
+    document.addEventListener('visibilitychange', () => {
+        const state = document.hidden ? 'paused' : 'running';
+        if (topoBackground) topoBackground.style.animationPlayState = state;
+        glowOrbs.forEach(orb => { orb.style.animationPlayState = state; });
+    });
+
+    // ==========================================================================
+    // 15. Passive Scroll Listeners — Garante FPS suave em Chrome/Safari mobile
+    // ==========================================================================
+    // O listener de scroll da janela já usa rAF throttle (seção 1 e 2)
+    // Adicionamos passive: true nos eventos de touch do body para liberar o thread principal
+    document.addEventListener('touchstart', () => {}, { passive: true });
+    document.addEventListener('touchmove', () => {}, { passive: true });
 });

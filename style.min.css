@@ -55,29 +55,23 @@ html {
 /* Animated Topographic Background */
 .topo-background {
     position: fixed;
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
     z-index: -2; /* Under everything */
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 40 C 90 20, 120 80, 210 60 C 290 40, 310 100, 410 80 M-10 80 C 80 60, 110 120, 200 100 C 280 80, 300 140, 410 120 M-10 120 C 70 100, 100 160, 190 140 C 270 120, 290 180, 410 160 M-10 160 C 60 140, 90 200, 180 180 C 260 160, 280 220, 410 200 M-10 200 C 50 180, 80 240, 170 220 C 250 200, 270 260, 410 240 M-10 240 C 40 220, 70 280, 160 260 C 240 240, 260 300, 410 280 M-10 280 C 30 260, 60 320, 150 300 C 230 280, 250 340, 410 320 M-10 320 C 20 300, 50 360, 140 340 C 220 320, 240 380, 410 360 M-10 360 C 10 340, 40 400, 130 380 C 210 360, 230 420, 410 400' fill='none' stroke='rgba(255, 255, 255, 0.015)' stroke-width='1.2'/%3E%3C/svg%3E");
     background-size: 450px 450px;
     will-change: transform;
-    animation: topoMove 80s infinite linear alternate;
+    /* Simplificado: sem rotate() para não forçar repaint de GPU */
+    animation: topoMove 120s infinite linear alternate;
     opacity: 0.8;
 }
 
 @keyframes topoMove {
-    0% {
-        transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    50% {
-        transform: translate3d(-3%, -3%, 0) rotate(0.8deg);
-    }
-    100% {
-        transform: translate3d(3%, 3%, 0) rotate(-0.8deg);
-    }
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(2%, 2%, 0); }
 }
 
 body {
@@ -1322,77 +1316,60 @@ textarea.form-input {
 /* Ambient glow orbs & textures with floating animations */
 .glow-orb {
     position: absolute;
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 500px;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.25;
+    opacity: 0.18;
     will-change: transform;
+    /* Usar contain para isolar o layer de GPU */
+    contain: layout style;
 }
 
 .orb-purple {
     background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 50%, transparent 70%);
     top: 5%;
     left: -200px;
-    animation: liquidPurple 32s infinite ease-in-out alternate;
+    /* Removido rotate() - apenas translate3d e scale para melhor performance GPU */
+    animation: liquidPurple 50s infinite ease-in-out alternate;
 }
 
 .orb-yellow {
     background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 50%, transparent 70%);
     bottom: 15%;
     right: -200px;
-    animation: liquidYellow 38s infinite ease-in-out alternate;
-    animation-delay: -10s;
+    animation: liquidYellow 60s infinite ease-in-out alternate;
+    animation-delay: -15s;
 }
 
 .orb-blue {
     background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 50%, transparent 70%);
     top: 30%;
     right: -150px;
-    width: 500px;
-    height: 500px;
-    animation: liquidBlue 45s infinite ease-in-out alternate;
-    animation-delay: -5s;
-    opacity: 0.15;
+    width: 400px;
+    height: 400px;
+    animation: liquidBlue 70s infinite ease-in-out alternate;
+    animation-delay: -8s;
+    opacity: 0.1;
 }
 
+/* Animações simplificadas sem rotate() — evita repaint constante do compositor */
 @keyframes liquidPurple {
-    0% {
-        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-    }
-    33% {
-        transform: translate3d(80px, -60px, 0) scale(1.12) rotate(120deg);
-    }
-    66% {
-        transform: translate3d(-40px, 90px, 0) scale(0.9) rotate(240deg);
-    }
-    100% {
-        transform: translate3d(0, 0, 0) scale(1) rotate(360deg);
-    }
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    50%  { transform: translate3d(60px, -50px, 0) scale(1.08); }
+    100% { transform: translate3d(-30px, 70px, 0) scale(0.95); }
 }
 
 @keyframes liquidYellow {
-    0% {
-        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-    }
-    50% {
-        transform: translate3d(-100px, 80px, 0) scale(1.15) rotate(-180deg);
-    }
-    100% {
-        transform: translate3d(0, 0, 0) scale(1) rotate(-360deg);
-    }
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    50%  { transform: translate3d(-80px, 60px, 0) scale(1.1); }
+    100% { transform: translate3d(30px, -40px, 0) scale(0.92); }
 }
 
 @keyframes liquidBlue {
-    0% {
-        transform: translate3d(0, 0, 0) scale(0.9) rotate(0deg);
-    }
-    50% {
-        transform: translate3d(70px, -90px, 0) scale(1.1) rotate(180deg);
-    }
-    100% {
-        transform: translate3d(0, 0, 0) scale(0.9) rotate(360deg);
-    }
+    0%   { transform: translate3d(0, 0, 0) scale(0.95); }
+    50%  { transform: translate3d(50px, -70px, 0) scale(1.05); }
+    100% { transform: translate3d(-20px, 40px, 0) scale(0.9); }
 }
 
 .project-card, .why-card, .testimonials-placeholder, .contact-panel, .cta-panel {
@@ -1564,15 +1541,22 @@ textarea.form-input {
         height: 70px;
     }
     
-    /* Reduzindo tamanho dos orbes de fundo para evitar overflow */
+    /* Orbes menores e sem animação pesada no mobile */
     .glow-orb {
-        width: 300px;
-        height: 300px;
-        filter: blur(80px);
+        width: 220px;
+        height: 220px;
+        opacity: 0.08;
+        /* Pausar animação no mobile para economizar CPU */
+        animation-play-state: paused;
+    }
+    
+    /* Desligar topo-background no mobile — invisível e pesado */
+    .topo-background {
+        display: none;
     }
 
     .nav {
-        display: none; /* Hide standard nav */
+        display: none;
     }
     
     .mobile-menu-btn {
@@ -1580,7 +1564,7 @@ textarea.form-input {
     }
     
     .header-cta .btn {
-        display: none; /* Hide CTA button */
+        display: none;
     }
     
     .hero {
@@ -1588,7 +1572,8 @@ textarea.form-input {
     }
     
     .hero-title {
-        font-size: 2.6rem;
+        font-size: 2.4rem;
+        line-height: 1.15;
     }
     
     .hero-buttons {
@@ -1598,30 +1583,50 @@ textarea.form-input {
     
     .hero-buttons .btn {
         width: 100%;
+        text-align: center;
+        justify-content: center;
     }
     
     .hero-highlights {
         flex-direction: column;
-        gap: 20px;
-        align-items: center;
+        gap: 16px;
+        align-items: flex-start;
+        width: 100%;
     }
     
+    .hero-highlight-item {
+        width: 100%;
+    }
+    
+    /* Slider horizontal de projetos no mobile */
     .projects-grid {
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        gap: 20px;
-        padding: 10px 4px 20px 4px;
+        gap: 16px;
+        padding: 8px 0 20px 0;
         scrollbar-width: none;
+        /* Evitar overflow no container pai */
+        width: 100%;
+        box-sizing: border-box;
     }
     .projects-grid::-webkit-scrollbar {
         display: none;
     }
     .project-card {
-        flex: 0 0 100%;
+        /* Largura fixa sem overflow lateral */
+        flex: 0 0 calc(100% - 2px);
+        min-width: 0;
         scroll-snap-align: start;
+        /* Desativar hover no mobile — sem ganho visual */
+        transform: none !important;
+    }
+    /* Desativar scroll da imagem no mobile — evita jank no touch */
+    .project-card .browser-image {
+        transition: none !important;
+        transform: translateY(0) !important;
     }
     .portfolio-dots {
         display: flex;
@@ -1663,17 +1668,32 @@ textarea.form-input {
         gap: 8px;
     }
     
-    /* Responsive photo card sizes for mobile */
-    .about-avatar-img-wrap {
-        width: 290px;
-        height: 360px;
+    /* Responsive photo card sizes for mobile — evita overflow lateral */
+    .about-image-wrap {
+        padding-right: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
-    
+    .about-avatar-img-wrap {
+        width: min(280px, calc(100vw - 80px));
+        height: auto;
+        aspect-ratio: 280 / 350;
+    }
     .about-image-wrap::after {
-        width: 290px;
-        height: 360px;
-        top: 10px;
-        left: 10px;
+        width: min(280px, calc(100vw - 80px));
+        height: auto;
+        aspect-ratio: 280 / 350;
+        top: 8px;
+        left: 8px;
+    }
+    /* Seção about sem text-align center em mobile para melhor legibilidade */
+    .about-text {
+        text-align: left;
+    }
+    .about-skills-grid {
+        justify-content: flex-start;
     }
 }
 
@@ -1956,24 +1976,15 @@ textarea.form-input {
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(124, 58, 237, 0.22), 0 0 15px rgba(208, 255, 0, 0.08);
 }
 
-/* Featured Pricing Card Pulse Effect */
+/* Featured Pricing Card Pulse Effect — duração maior para economizar CPU */
 @keyframes pricingCardPulse {
-    0% {
-        border-color: #444444;
-        box-shadow: 0 15px 35px rgba(255, 255, 255, 0.03);
-    }
-    50% {
-        border-color: #ffffff;
-        box-shadow: 0 15px 35px rgba(255, 255, 255, 0.08), 0 0 20px rgba(255, 255, 255, 0.04);
-    }
-    100% {
-        border-color: #444444;
-        box-shadow: 0 15px 35px rgba(255, 255, 255, 0.03);
-    }
+    0%   { box-shadow: 0 15px 35px rgba(255, 255, 255, 0.03); }
+    50%  { box-shadow: 0 15px 35px rgba(255, 255, 255, 0.08), 0 0 20px rgba(255, 255, 255, 0.04); }
+    100% { box-shadow: 0 15px 35px rgba(255, 255, 255, 0.03); }
 }
 
 .pricing-card.popular {
-    animation: pricingCardPulse 5s infinite ease-in-out;
+    animation: pricingCardPulse 10s infinite ease-in-out;
 }
 
 /* Floating CTA Responsiveness & Safety Margin */
@@ -2003,7 +2014,7 @@ textarea.form-input {
 
 /* Accessibility Support for Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-    .fade-in-scroll, .project-card, .btn, .pricing-card.popular, .glow-orb, .browser-image {
+    .fade-in-scroll, .project-card, .btn, .pricing-card.popular, .glow-orb, .browser-image, .topo-background {
         animation: none !important;
         transition: none !important;
         transform: none !important;
@@ -2011,6 +2022,54 @@ textarea.form-input {
     }
     .project-card:hover .browser-image {
         transform: none !important;
+    }
+}
+
+/* ==========================================================================
+   SWIPE HINT — visível apenas em mobile, na seção de projetos
+   ========================================================================== */
+.swipe-hint {
+    display: none; /* oculto por padrão no desktop */
+}
+
+@media (max-width: 768px) {
+    .swipe-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 6px;
+        margin-bottom: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        letter-spacing: 0.3px;
+        opacity: 0;
+        animation: swipeHintFade 3s ease-in-out 1.2s forwards;
+    }
+    .swipe-hint-icon {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        animation: swipeHintBounce 1.4s ease-in-out 1.2s infinite;
+    }
+    .swipe-hint-icon svg {
+        color: var(--text-light);
+    }
+    @keyframes swipeHintFade {
+        0%   { opacity: 0; }
+        20%  { opacity: 1; }
+        75%  { opacity: 1; }
+        100% { opacity: 0; }
+    }
+    @keyframes swipeHintBounce {
+        0%, 100% { transform: translateX(0); }
+        30%       { transform: translateX(6px); }
+        60%       { transform: translateX(-3px); }
+    }
+    /* Ocultar o hint depois que o usuário já rolou */
+    .swipe-hint.hidden {
+        display: none !important;
     }
 }
 
