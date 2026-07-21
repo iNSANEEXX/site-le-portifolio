@@ -2565,3 +2565,44 @@ textarea.form-input {
 .brand-logo:hover, .footer-logo:hover {
     filter: grayscale(0%) brightness(100%) contrast(100%);
 }
+
+/* ==========================================================================
+   FLOATING WHATSAPP BUTTON (HIGH CONVERSION)
+   ========================================================================== */
+.whatsapp-float-fixed {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #25d366;
+    color: #ffffff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+}
+
+.whatsapp-float-fixed:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+}
+
+.wa-status-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #0f172a;
+    border: 1px solid #25d366;
+    color: #25d366;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
