@@ -29,9 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     cacheSectionDimensions();
-    window.addEventListener('resize', cacheSectionDimensions);
+    
+    // Debounce resize listener to prevent layout thrashing on screen size changes
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(cacheSectionDimensions, 150);
+    });
 
     let scrollPending = false;
+    let activeSectionId = ''; // Cache the active section to prevent DOM updates on every scroll frame
+
     const updateScrollEvents = () => {
         const scrollY = window.scrollY;
 
@@ -54,13 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        navItems.forEach(item => {
-            if (item.getAttribute('href') === `#${currentSection}`) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
-        });
+        if (currentSection !== activeSectionId) {
+            activeSectionId = currentSection;
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === `#${currentSection}`) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
     };
 
     window.addEventListener('scroll', () => {
