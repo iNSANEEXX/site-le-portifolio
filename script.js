@@ -587,21 +587,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchstart', () => {}, { passive: true });
     document.addEventListener('touchmove', () => {}, { passive: true });
 
-    // ==========================================================================
-    // 16. Rotacionador Dinâmico de Nichos para Portugal
-    // ==========================================================================
-    const dynamicWordEl = document.getElementById('dynamic-word');
-    if (dynamicWordEl) {
-        const words = ['Clínicas Dentárias', 'Médicos Dentistas', 'Empresas em Portugal', 'Clínicas de Saúde', 'Agências & Marcas'];
-        let wordIndex = 0;
-        setInterval(() => {
-            wordIndex = (wordIndex + 1) % words.length;
-            dynamicWordEl.style.opacity = '0';
-            dynamicWordEl.style.transition = 'opacity 0.4s ease';
-            setTimeout(() => {
-                dynamicWordEl.textContent = words[wordIndex];
-                dynamicWordEl.style.opacity = '1';
-            }, 400);
-        }, 3000);
-    }
 });
