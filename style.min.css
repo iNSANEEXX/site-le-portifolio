@@ -132,23 +132,17 @@ main {
 }
 
 #dynamic-word {
-    display: inline-block;
-    min-width: 12ch;
-    white-space: nowrap;
-    text-align: left;
-    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    transform: translateY(0);
+    display: inline;
+    transition: opacity 0.3s ease;
     opacity: 1;
 }
 
 #dynamic-word.fade-out {
     opacity: 0;
-    transform: translateY(-8px);
 }
 
 #dynamic-word.fade-in {
-    opacity: 0;
-    transform: translateY(8px);
+    opacity: 1;
 }
 
 @keyframes textGradientFlow {
@@ -2031,19 +2025,27 @@ textarea.form-input {
 /* ==========================================================================
    PORTFOLIO DRAG HINT BADGE & SWIPE INDICATORS
    ========================================================================== */
+.portfolio-drag-hint-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
 .portfolio-drag-hint {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     background: rgba(124, 58, 237, 0.12);
     border: 1px solid rgba(124, 58, 237, 0.35);
     border-radius: 50px;
-    padding: 10px 24px;
-    margin: 0 auto 28px auto;
-    font-size: 0.88rem;
+    padding: 8px 20px;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--text-main);
+    max-width: 90%;
     box-shadow: 0 4px 20px rgba(124, 58, 237, 0.18);
     animation: dragHintGlow 3s ease-in-out infinite alternate;
 }
