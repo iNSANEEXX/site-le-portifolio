@@ -25,6 +25,10 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Configuração de Contato do Portfólio de Lucas
+        const WHATSAPP_NUMBER = "351912345678"; // Exclusivo Lucas
+    </script>
 </head>
 <body style="overflow-x: hidden;">
 
@@ -896,5 +900,17 @@
 
     <!-- JS -->
     <script src="script.js" defer></script>
+    <script>
+        // Inicialização dinâmica dos links do WhatsApp baseada na constante do topo
+        document.addEventListener("DOMContentLoaded", () => {
+            const waLinks = document.querySelectorAll('a[href*="wa.me/"]');
+            waLinks.forEach(link => {
+                const url = new URL(link.href);
+                const pathParts = url.pathname.split('/');
+                const textParam = url.searchParams.get('text') || '';
+                link.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(textParam)}`;
+            });
+        });
+    </script>
 </body>
 </html>
