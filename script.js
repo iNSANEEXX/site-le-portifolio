@@ -160,11 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     formSuccessMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     contactForm.reset();
                 } else {
-                    alert('Submission failed. Please check connection and try again.');
+                    alert('Falha no envio. Por favor, verifique a sua ligação e tente novamente.');
                 }
             } catch (error) {
-                console.error('Submission Error:', error);
-                alert('An error occurred. Please try again.');
+                console.error('Erro no Envio:', error);
+                alert('Ocorreu um erro. Por favor, tente novamente.');
             }
         });
     }
