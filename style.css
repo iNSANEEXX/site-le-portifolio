@@ -133,6 +133,9 @@ main {
 
 #dynamic-word {
     display: inline-block;
+    min-width: 12ch;
+    white-space: nowrap;
+    text-align: left;
     transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateY(0);
     opacity: 1;
@@ -2026,10 +2029,66 @@ textarea.form-input {
 }
 
 /* ==========================================================================
-   SWIPE HINT — visível apenas em mobile, na seção de projetos
+   PORTFOLIO DRAG HINT BADGE & SWIPE INDICATORS
    ========================================================================== */
+.portfolio-drag-hint {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.35);
+    border-radius: 50px;
+    padding: 10px 24px;
+    margin: 0 auto 28px auto;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-main);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.18);
+    animation: dragHintGlow 3s ease-in-out infinite alternate;
+}
+
+.portfolio-drag-hint .drag-hint-icon {
+    font-size: 1.2rem;
+    animation: dragHandMove 1.4s ease-in-out infinite alternate;
+}
+
+.portfolio-drag-hint .drag-hint-arrow {
+    color: var(--yellow);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.portfolio-drag-hint .drag-hint-arrow.left {
+    animation: dragArrowLeft 1.4s ease-in-out infinite alternate;
+}
+
+.portfolio-drag-hint .drag-hint-arrow.right {
+    animation: dragArrowRight 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes dragHandMove {
+    0% { transform: translateX(-5px) scale(1); }
+    100% { transform: translateX(5px) scale(1.1); }
+}
+
+@keyframes dragArrowLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-6px); }
+}
+
+@keyframes dragArrowRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(6px); }
+}
+
+@keyframes dragHintGlow {
+    0% { border-color: rgba(124, 58, 237, 0.35); box-shadow: 0 4px 15px rgba(124, 58, 237, 0.15); }
+    100% { border-color: rgba(250, 204, 21, 0.6); box-shadow: 0 4px 25px rgba(250, 204, 21, 0.3); }
+}
+
 .swipe-hint {
-    display: none; /* oculto por padrão no desktop */
+    display: none;
 }
 
 @media (max-width: 768px) {
