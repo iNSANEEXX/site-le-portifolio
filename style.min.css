@@ -416,6 +416,7 @@ textarea:focus-visible {
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 20px;
+    min-height: 2.3em;
 }
 
 .hero-desc {
