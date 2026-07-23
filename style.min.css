@@ -4,39 +4,39 @@
    ========================================================================== */
 
 :root {
-    /* Editorial Monochromatic Black & White Palette */
-    --bg-page: #0a0a0a; /* Soft Deep Black */
-    --bg-surface: #141414; /* Alternating section dark gray */
-    --bg-card: #181818; /* Card background */
-    --bg-card-hover: #222222;
+    /* Technical High-Performance Cobalt Palette */
+    --bg-page: #08080c; /* Deep Space Slate */
+    --bg-surface: #0f1016; /* Clean tech dark section */
+    --bg-card: #13141f; /* Card base surface */
+    --bg-card-hover: #1a1c2d;
     
-    --text-main: #f5f5f5; /* Soft white */
-    --text-muted: #a0a0a0; /* Hierarchical slate gray */
-    --text-light: #707070; /* Muted gray for borders/tags */
+    --text-main: #f8fafc; /* Crisp white-blue text */
+    --text-muted: #94a3b8; /* Muted steel gray */
+    --text-light: #64748b; /* Code/Border gray */
     
-    /* Accents mapped to Monochromatic Scale */
-    --purple: #ffffff; /* White Primary */
-    --purple-dark: #e5e5e5;
-    --purple-subtle: rgba(255, 255, 255, 0.08);
-    --purple-glow: rgba(255, 255, 255, 0.15);
+    /* Primary Cobalt Blue */
+    --purple: #2563eb; 
+    --purple-dark: #1d4ed8;
+    --purple-subtle: rgba(37, 99, 235, 0.08);
+    --purple-glow: rgba(37, 99, 235, 0.2);
     
-    /* Secondary Accent values */
-    --yellow: #e5e5e5;
-    --yellow-dark: #d4d4d4;
-    --yellow-subtle: rgba(255, 255, 255, 0.06);
-    --yellow-glow: rgba(255, 255, 255, 0.1);
+    /* Secondary Cyan/Light Blue */
+    --yellow: #38bdf8;
+    --yellow-dark: #0ea5e9;
+    --yellow-subtle: rgba(56, 189, 248, 0.06);
+    --yellow-glow: rgba(56, 189, 248, 0.1);
     
     /* Utility colors */
-    --red: #ef4444;
-    --red-subtle: rgba(239, 68, 68, 0.1);
-    --whatsapp: #25D366;
+    --red: #f43f5e;
+    --red-subtle: rgba(244, 63, 94, 0.1);
+    --whatsapp: #22c55e;
     
-    --border: #2a2a2a; /* Subtle dark border */
-    --border-hover: #404040;
+    --border: rgba(255, 255, 255, 0.07); /* Technical wireframe grid lines */
+    --border-hover: rgba(37, 99, 235, 0.25);
     
-    --radius: 16px;
-    --radius-sm: 8px;
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --radius: 12px; /* Technical, slightly sharper corners */
+    --radius-sm: 6px;
+    --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -52,21 +52,20 @@ html {
     overflow-x: hidden;
 }
 
-/* Animated Topographic Background */
+/* Technical Grid Blueprint Background */
 .topo-background {
     position: fixed;
-    top: -5%;
-    left: -5%;
-    width: 110%;
-    height: 110%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -2; /* Under everything */
     pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 40 C 90 20, 120 80, 210 60 C 290 40, 310 100, 410 80 M-10 80 C 80 60, 110 120, 200 100 C 280 80, 300 140, 410 120 M-10 120 C 70 100, 100 160, 190 140 C 270 120, 290 180, 410 160 M-10 160 C 60 140, 90 200, 180 180 C 260 160, 280 220, 410 200 M-10 200 C 50 180, 80 240, 170 220 C 250 200, 270 260, 410 240 M-10 240 C 40 220, 70 280, 160 260 C 240 240, 260 300, 410 280 M-10 280 C 30 260, 60 320, 150 300 C 230 280, 250 340, 410 320 M-10 320 C 20 300, 50 360, 140 340 C 220 320, 240 380, 410 360 M-10 360 C 10 340, 40 400, 130 380 C 210 360, 230 420, 410 400' fill='none' stroke='rgba(255, 255, 255, 0.015)' stroke-width='1.2'/%3E%3C/svg%3E");
-    background-size: 450px 450px;
-    will-change: transform;
-    /* Simplificado: sem rotate() para não forçar repaint de GPU */
-    animation: topoMove 120s infinite linear alternate;
-    opacity: 0.8;
+    background-size: 50px 50px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    opacity: 0.9;
 }
 
 @keyframes topoMove {
@@ -448,9 +447,9 @@ textarea:focus-visible {
 }
 
 .hh-num {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Fira Code', monospace;
     font-size: 1.8rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--purple);
 }
 
@@ -911,9 +910,9 @@ textarea:focus-visible {
 }
 
 .project-tech span {
-    font-family: monospace;
+    font-family: 'Fira Code', monospace;
     font-size: 0.7rem;
-    color: var(--text-light);
+    color: var(--text-muted);
     background-color: var(--bg-surface);
     border: 1px solid var(--border);
     padding: 2px 8px;
@@ -1014,8 +1013,8 @@ textarea:focus-visible {
 }
 
 .step-num {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
+    font-family: 'Fira Code', monospace;
+    font-weight: 700;
     font-size: 1rem;
     color: #FFFFFF;
     background-color: var(--bg-page);
@@ -1783,7 +1782,7 @@ textarea.form-input {
     display: inline-block;
     align-self: flex-start;
     background-color: var(--purple-subtle);
-    border: 1px solid rgba(124, 58, 237, 0.3);
+    border: 1px solid var(--border);
     color: var(--purple);
     padding: 4px 10px;
     border-radius: 4px;
@@ -1793,6 +1792,7 @@ textarea.form-input {
     text-transform: uppercase;
     margin-bottom: 14px;
     width: fit-content;
+    font-family: 'Fira Code', monospace;
 }
 
 /* ==========================================================================
@@ -2623,12 +2623,12 @@ textarea.form-input {
 .hero::after {
     content: '';
     position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 450 450'%3E%3Cpath d='M-10 40 C 90 20, 120 80, 210 60 C 290 40, 310 100, 410 80 M-10 80 C 80 60, 110 120, 200 100 C 280 80, 300 140, 410 120 M-10 120 C 70 100, 100 160, 190 140 C 270 120, 290 180, 410 160 M-10 160 C 60 140, 90 200, 180 180 C 260 160, 280 220, 410 200 M-10 200 C 50 180, 80 240, 170 220 C 250 200, 270 260, 410 240 M-10 240 C 40 220, 70 280, 160 260 C 240 240, 260 300, 410 280' fill='none' stroke='rgba(255, 255, 255, 0.015)' stroke-width='1.2'/%3E%3C/svg%3E");
-    background-size: 450px 450px;
-    background-position: center;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
-    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
     pointer-events: none;
     z-index: 1;
 }
