@@ -380,17 +380,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Hover expansions
-        const hoverTargets = document.querySelectorAll('a, button, input, select, textarea, .project-card, .why-card, .faq-trigger');
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
+        // Hover expansions via event delegation to reduce memory footprint
+        document.body.addEventListener('mouseover', (e) => {
+            const target = e.target.closest('a, button, input, select, textarea, .project-card, .why-card, .faq-trigger');
+            if (target) {
                 cursorDot.classList.add('hover');
                 cursorOutline.classList.add('hover');
-            });
-            target.addEventListener('mouseleave', () => {
+            }
+        });
+        document.body.addEventListener('mouseout', (e) => {
+            const target = e.target.closest('a, button, input, select, textarea, .project-card, .why-card, .faq-trigger');
+            if (target) {
                 cursorDot.classList.remove('hover');
                 cursorOutline.classList.remove('hover');
-            });
+            }
         });
 
         // Hide cursor when leaving window
@@ -404,50 +407,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 11. Reusable Magnetic Elements Engine (Optimized with Frame Lock & Transitions) - PC Only
+    // 11. Reusable Magnetic Elements Engine (Delegated & Memory Safe) - PC Only
     // ==========================================================================
     if (isDesktop) {
-        const magneticTargets = document.querySelectorAll('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
-        
-        magneticTargets.forEach(target => {
-            let rect = null;
-            let mouseMovePending = false;
-            let currentX = 0;
-            let currentY = 0;
-    
-            target.addEventListener('mouseenter', () => {
+        let activeMagneticTarget = null;
+        let rect = null;
+        let mouseMovePending = false;
+
+        document.body.addEventListener('mouseover', (e) => {
+            const target = e.target.closest('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
+            if (target && target !== activeMagneticTarget) {
+                activeMagneticTarget = target;
                 rect = target.getBoundingClientRect();
-                target.style.transition = 'none'; // Temporarily disable transitions during raw tracking to prevent fighting
-            });
-    
-            target.addEventListener('mousemove', (e) => {
-                currentX = e.clientX;
-                currentY = e.clientY;
-                
-                if (!mouseMovePending) {
-                    mouseMovePending = true;
-                    requestAnimationFrame(() => {
-                        if (rect) {
-                            const centerX = rect.left + rect.width / 2;
-                            const centerY = rect.top + rect.height / 2;
-                            const distanceX = currentX - centerX;
-                            const distanceY = currentY - centerY;
-                
-                            // Pull element 25% of the distance towards the mouse
-                            target.style.transform = `translate3d(${distanceX * 0.25}px, ${distanceY * 0.25}px, 0) scale(1.03)`;
-                        }
-                        mouseMovePending = false;
-                    });
-                }
-            });
-    
-            target.addEventListener('mouseleave', () => {
+                target.style.transition = 'none'; // Temporarily disable transitions during raw tracking
+            }
+        });
+
+        document.body.addEventListener('mousemove', (e) => {
+            if (!activeMagneticTarget || !rect) return;
+
+            if (!mouseMovePending) {
+                mouseMovePending = true;
+                const currentX = e.clientX;
+                const currentY = e.clientY;
+                requestAnimationFrame(() => {
+                    if (activeMagneticTarget && rect) {
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+                        const distanceX = currentX - centerX;
+                        const distanceY = currentY - centerY;
+
+                        // Pull element 22% of the distance towards the mouse
+                        activeMagneticTarget.style.transform = `translate3d(${distanceX * 0.22}px, ${distanceY * 0.22}px, 0) scale(1.02)`;
+                    }
+                    mouseMovePending = false;
+                });
+            }
+        }, { passive: true });
+
+        document.body.addEventListener('mouseout', (e) => {
+            if (!activeMagneticTarget) return;
+            const target = e.target.closest('.magnetic-target, .btn-purple, .btn-outline, .floating-cta');
+            // Se o mouse saiu do elemento ativo
+            if (target && !target.contains(e.relatedTarget)) {
+                const tempTarget = activeMagneticTarget;
+                activeMagneticTarget = null;
                 rect = null;
                 mouseMovePending = false;
                 // Restore transitions for smooth return snapback
-                target.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
-                target.style.transform = 'translate3d(0, 0, 0) scale(1)';
-            });
+                tempTarget.style.transition = 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)';
+                tempTarget.style.transform = 'translate3d(0, 0, 0) scale(1)';
+            }
         });
     }
 
