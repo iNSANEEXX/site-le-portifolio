@@ -378,16 +378,20 @@ textarea:focus-visible {
 }
 
 .hero-inner {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 40px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    gap: 40px;
 }
 
 .hero-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .tag-pill {
@@ -435,12 +439,14 @@ textarea:focus-visible {
 }
 
 .hero-buttons {
+    justify-content: center;
     display: flex;
     gap: 16px;
     margin-bottom: 48px;
 }
 
 .hero-highlights {
+    justify-content: center;
     display: flex;
     gap: 40px;
     border-top: 1px solid var(--border);
@@ -449,6 +455,7 @@ textarea:focus-visible {
 }
 
 .hh-item {
+    align-items: center;
     display: flex;
     flex-direction: column;
 }
@@ -1515,10 +1522,12 @@ textarea.form-input {
     }
     
     .hero-buttons {
+    justify-content: center;
         justify-content: center;
     }
     
     .hero-highlights {
+    justify-content: center;
         justify-content: center;
     }
     
@@ -1605,6 +1614,7 @@ textarea.form-input {
     }
     
     .hero-buttons {
+    justify-content: center;
         flex-direction: column;
         width: 100%;
     }
@@ -1616,6 +1626,7 @@ textarea.form-input {
     }
     
     .hero-highlights {
+    justify-content: center;
         flex-direction: column;
         gap: 16px;
         align-items: flex-start;
