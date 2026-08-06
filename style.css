@@ -2808,3 +2808,72 @@ textarea.form-input {
     background: radial-gradient(circle, var(--blue-glow) 0%, transparent 60%);
 }
 
+
+
+/* ==========================================================================
+   Graphic Identity (SVGs, Textures, Dividers)
+   ========================================================================== */
+
+/* Background Grid Texture */
+.tech-grid {
+    position: relative;
+}
+.tech-grid::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Section Divider Beam */
+.divider-beam {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue-glow), transparent);
+    margin: 40px 0;
+    position: relative;
+    opacity: 0.6;
+}
+.divider-beam::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    filter: blur(2px);
+}
+
+/* SVG Outline Hover Styles */
+.svg-outline {
+    transition: transform 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+}
+.why-card:hover .svg-outline, .how-work-card:hover .svg-outline, .project-card:hover .svg-outline {
+    stroke: var(--blue);
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 6px var(--blue-glow));
+}
+
+/* Circular Progress Ring */
+.progress-ring-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+.progress-ring {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+.progress-ring-circle {
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+

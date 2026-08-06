@@ -118,7 +118,13 @@
 
                     <div class="hero-highlights">
                         <div class="hh-item">
-                            <span class="hh-num counter" data-target="98">0</span>%
+                            <div class="progress-ring-wrapper">
+                                <svg class="progress-ring" width="100" height="100">
+                                    <circle cx="50" cy="50" r="40" fill="transparent" stroke="var(--blue-subtle)" stroke-width="4"/>
+                                    <circle class="progress-ring-circle" cx="50" cy="50" r="40" fill="transparent" stroke="var(--blue)" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round"/>
+                                </svg>
+                                <span style="position:absolute;"><span class="hh-num counter" data-target="98">0</span>%</span>
+                            </div>
                             <span class="hh-txt">Pontuação Média no PageSpeed</span>
                         </div>
                         <div class="hh-item">
@@ -126,7 +132,13 @@
                             <span class="hh-txt">Crescimento de Contactos</span>
                         </div>
                         <div class="hh-item">
-                            <span class="hh-num counter" data-target="100">0</span>%
+                            <div class="progress-ring-wrapper">
+                                <svg class="progress-ring" width="100" height="100">
+                                    <circle cx="50" cy="50" r="40" fill="transparent" stroke="var(--blue-subtle)" stroke-width="4"/>
+                                    <circle class="progress-ring-circle" cx="50" cy="50" r="40" fill="transparent" stroke="var(--blue)" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round"/>
+                                </svg>
+                                <span style="position:absolute;"><span class="hh-num counter" data-target="100">0</span>%</span>
+                            </div>
                             <span class="hh-txt">Código Limpo e Personalizado</span>
                         </div>
                     </div>
@@ -352,7 +364,7 @@
                     <div class="why-card bento-span-2 bento-row magnetic-target">
                         <div class="bento-col-content">
                             <div class="why-icon-wrap">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="why-icon"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="why-icon svg-outline"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13"/><path d="M13 3l3 6-4 13"/></svg>
                             </div>
                             <h4>Performance Extrema</h4>
                             <p>Websites otimizados para carregar em menos de 1,0 segundo. Alta velocidade reduz a desistência e melhora a pontuação no Google.</p>
@@ -371,7 +383,7 @@
 
                     <div class="why-card magnetic-target">
                         <div class="why-icon-wrap">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="why-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="why-icon svg-outline"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
                         </div>
                         <h4>Design UI Exclusivo</h4>
                         <p>Layouts sob medida que geram autoridade imediata. Desenvolvo pensado no seu público-alvo com tipografia e cores cuidadas.</p>
@@ -379,7 +391,7 @@
 
                     <div class="why-card magnetic-target">
                         <div class="why-icon-wrap">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="why-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="why-icon svg-outline"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                         </div>
                         <h4>100% Responsivo</h4>
                         <p>Arquitetura Mobile-First. Mais de 65% do tráfego é mobile; garanto que o seu site fica perfeito em qualquer telemóvel ou tablet.</p>
@@ -388,7 +400,7 @@
                     <div class="why-card bento-span-2 bento-row magnetic-target">
                         <div class="bento-col-content">
                             <div class="why-icon-wrap">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="why-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="why-icon svg-outline"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><polyline points="11 8 11 14 14 14"/></svg>
                             </div>
                             <h4>Preparado para SEO</h4>
                             <p>Estrutura semântica rigorosa. Layouts construídos com tags HTML5 adequadas, descrições meta e atributos para alta indexação.</p>
@@ -405,7 +417,7 @@
 
                     <div class="why-card magnetic-target">
                         <div class="why-icon-wrap">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="why-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="why-icon svg-outline"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                         </div>
                         <h4>Foco em Geração de Leads</h4>
                         <p>Desenho de caminhos de conversão. Chamadas de ação estratégicas e ligação direta ao WhatsApp para aumentar contactos.</p>
@@ -414,7 +426,7 @@
                     <div class="why-card bento-span-2 bento-row magnetic-target">
                         <div class="bento-col-content">
                             <div class="why-icon-wrap">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="why-icon"><code style="font-family: monospace; font-weight: 700; font-size: 1rem;">&lt;/&gt;</code></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="why-icon svg-outline"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                             </div>
                             <h4>Código Limpo & Sem Bloat</h4>
                             <p>Código feito à mão para durabilidade. Sem construtores lentos ou plugins desnecessários que prejudicam a velocidade.</p>
@@ -438,7 +450,7 @@
         </section>
 
         <!-- Process Section -->
-        <section class="section section-dark section-process" id="process">
+        <div class="divider-beam"></div><section class="section section-dark section-process tech-grid" id="process">
             <div class="container">
                 <div class="section-top text-center">
                     <span class="sub-tag">ETAPAS DO TRABALHO</span>
@@ -493,19 +505,19 @@
 
                 <div class="how-work-grid">
                     <div class="how-work-card reveal">
-                        <div class="how-work-num">01</div>
+                        <div class="how-work-num"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="svg-outline"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> 01</div>
                         <h4>Design & Código Sob Medida</h4>
                         <p>Sem templates pré-prontos ou construtores de arrastar. Cada linha de código é feita especificamente para o seu nicho.</p>
                     </div>
 
                     <div class="how-work-card reveal">
-                        <div class="how-work-num">02</div>
+                        <div class="how-work-num"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="svg-outline"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 02</div>
                         <h4>Foco em Velocidade</h4>
                         <p>Páginas desenhadas para carregar em menos de 1 segundo, garantindo que nenhum cliente desista antes de ver a proposta.</p>
                     </div>
 
                     <div class="how-work-card reveal">
-                        <div class="how-work-num">03</div>
+                        <div class="how-work-num"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="svg-outline"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 03</div>
                         <h4>Comunicação Direta no WhatsApp</h4>
                         <p>Trabalha diretamente comigo sem intermediários. Respostas rápidas e acompanhamento de todo o progresso.</p>
                     </div>
@@ -683,7 +695,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="section section-faq texture-lines" id="faq">
+        <div class="divider-beam"></div><section class="section section-faq texture-lines" id="faq">
             <div class="container">
                 <div class="section-top text-center">
                     <span class="sub-tag">DÚVIDAS FREQUENTES</span>

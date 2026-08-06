@@ -659,6 +659,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const easeProgress = 1 - Math.pow(1 - progress, 4);
                     
                     target.innerText = Math.floor(easeProgress * targetValue);
+                    const ring = target.closest('.progress-ring-wrapper')?.querySelector('.progress-ring-circle');
+                    if (ring) {
+                        const radius = ring.r.baseVal.value;
+                        const circumference = radius * 2 * Math.PI;
+                        ring.style.strokeDashoffset = circumference - (progress * circumference);
+                    }
 
                     if (progress < 1) {
                         requestAnimationFrame(updateCounter);
