@@ -2936,3 +2936,62 @@ textarea.form-input {
     object-position: top;
 }
 
+
+
+/* ==========================================================================
+   Hero Brand Graphic (Logo Focus)
+   ========================================================================== */
+.hero-brand-graphic {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20,20,20,0.8) 0%, transparent 70%);
+    animation: floatLogo 8s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+.brand-graphic-inner {
+    position: relative;
+    z-index: 2;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-logo-large {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px var(--blue-glow)) drop-shadow(0 0 10px rgba(255,255,255,0.1));
+}
+
+.brand-graphic-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-glow) 0%, transparent 60%);
+    z-index: 1;
+    animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
