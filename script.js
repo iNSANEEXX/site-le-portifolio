@@ -598,3 +598,42 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchmove', () => {}, { passive: true });
 
 });
+
+
+    // ==========================================================================
+    // Intersection Observer for Reveal Animations
+    // ==========================================================================
+    const revealOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Unobserve after revealing
+            }
+        });
+    }, revealOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // ==========================================================================
+    // Magnetic Button Effect
+    // ==========================================================================
+    const magneticElements = document.querySelectorAll('.magnetic');
+    magneticElements.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(px, px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0px, 0px)';
+        });
+    });
+
