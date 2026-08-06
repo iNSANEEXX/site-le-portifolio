@@ -637,3 +637,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+
+    // ==========================================================================
+    // Number Counter Animation (Performance Optimized)
+    // ==========================================================================
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const targetValue = parseInt(target.getAttribute('data-target'));
+                let startValue = 0;
+                const duration = 1500; // ms
+                let startTime = null;
+
+                function updateCounter(currentTime) {
+                    if (!startTime) startTime = currentTime;
+                    const progress = Math.min((currentTime - startTime) / duration, 1);
+                    // easeOutQuart
+                    const easeProgress = 1 - Math.pow(1 - progress, 4);
+                    
+                    target.innerText = Math.floor(easeProgress * targetValue);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        target.innerText = targetValue;
+                    }
+                }
+                requestAnimationFrame(updateCounter);
+                observer.unobserve(target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+

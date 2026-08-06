@@ -26,6 +26,12 @@
     --yellow-subtle: rgba(255, 255, 255, 0.06);
     --yellow-glow: rgba(255, 255, 255, 0.1);
     
+    /* Sapphire / Electric Blue Accent */
+    --blue: #0066FF;
+    --blue-dark: #0044CC;
+    --blue-subtle: rgba(0, 102, 255, 0.1);
+    --blue-glow: rgba(0, 102, 255, 0.25);
+    
     /* Utility colors */
     --red: #ef4444;
     --red-subtle: rgba(239, 68, 68, 0.1);
@@ -2779,8 +2785,13 @@ textarea.form-input {
     will-change: transform, box-shadow;
 }
 .work-card:hover, .service-card:hover, .how-work-card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.05);
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--blue-subtle);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--blue-glow);
+}
+
+.hh-num {
+    color: var(--blue);
 }
 
 /* Magnetic Button utility */
@@ -2788,5 +2799,12 @@ textarea.form-input {
     display: inline-block;
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     will-change: transform;
+}
+
+
+
+/* Added Blue Orb */
+.orb-blue {
+    background: radial-gradient(circle, var(--blue-glow) 0%, transparent 60%);
 }
 
