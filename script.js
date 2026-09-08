@@ -452,29 +452,29 @@
                 }
             }
 
-            // On scroll: dynamic camera pass where the phone glides across the browser screen (desktop only)
+            // On scroll: subtle depth parallax pass (desktop only)
             if (phoneFloat && browserFloat && window.innerWidth > 680) {
                 gsap.to(phoneFloat, {
-                    yPercent: -45,
-                    xPercent: -8,
-                    rotateZ: -4,
+                    yPercent: -14,
+                    xPercent: -3,
+                    rotateZ: -2,
                     ease: 'none',
                     scrollTrigger: {
                         trigger: '#hero',
                         start: 'top top',
                         end: 'bottom top',
-                        scrub: 0.8
+                        scrub: 0.6
                     }
                 });
                 gsap.to(browserFloat, {
-                    yPercent: 20,
-                    scale: 0.94,
+                    yPercent: 6,
+                    scale: 0.98,
                     ease: 'none',
                     scrollTrigger: {
                         trigger: '#hero',
                         start: 'top top',
                         end: 'bottom top',
-                        scrub: 0.8
+                        scrub: 0.6
                     }
                 });
             }
@@ -590,14 +590,16 @@
 
         $$('[data-anim="stagger"]').forEach((el) => {
             const children = Array.from(el.children).filter(c => !headlines.includes(c) && !c.classList.contains('work-card'));
-            gsap.from(children, {
-                y: 18,
-                opacity: 0.35,
-                duration: 0.6,
-                ease: 'power2.out',
-                stagger: 0.05,
-                scrollTrigger: { trigger: el, start: 'top 90%', once: true }
-            });
+            if (children.length) {
+                gsap.from(children, {
+                    y: 18,
+                    opacity: 0.35,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    stagger: 0.05,
+                    scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+                });
+            }
         });
 
         /* 7. PARALLAX (Desktop Only) */
@@ -622,45 +624,54 @@
             });
         }
 
-        /* 9. SHOWCASE (pinned with film cross-dissolve - Desktop Only) */
+        /* 9. SHOWCASE (pinned with smooth cross-fade - Desktop Only) */
         (() => {
             const steps = $$('.showcase-step');
             const media = $('#showcase-img');
             const barFill = $('#showcase-bar');
             if (!steps.length || !media || window.innerWidth <= 1024) return;
+
+            // Preload images
+            steps.forEach(s => {
+                if (s.dataset.img) {
+                    const preload = new Image();
+                    preload.src = s.dataset.img;
+                }
+            });
+
             let active = -1;
             const activate = (i) => {
-                if (i === active) return;
+                if (i === active || !steps[i]) return;
                 active = i;
                 steps.forEach((s, k) => s.classList.toggle('is-active', k === i));
-                if (barFill) barFill.style.width = ((i + 1) / steps.length * 100) + '%';
+                if (barFill) barFill.style.width = (((i + 1) / steps.length) * 100) + '%';
                 const src = steps[i].dataset.img;
                 if (src && !media.src.endsWith(src)) {
-                    const overlay = media.cloneNode();
-                    overlay.src = src;
-                    overlay.style.position = 'absolute';
-                    overlay.style.inset = '0';
-                    overlay.style.opacity = '0';
-                    overlay.style.transform = 'scale(1.04)';
-                    overlay.style.zIndex = '2';
-                    media.parentNode.insertBefore(overlay, media);
-                    gsap.to(overlay, {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.65,
-                        ease: 'power2.out',
+                    gsap.to(media, {
+                        opacity: 0.2,
+                        duration: 0.2,
+                        ease: 'power1.out',
                         onComplete: () => {
                             media.src = src;
-                            overlay.remove();
-                            gsap.set(media, { opacity: 1, scale: 1 });
+                            gsap.to(media, {
+                                opacity: 1,
+                                duration: 0.35,
+                                ease: 'power2.out'
+                            });
                         }
                     });
                 }
             };
-            steps.forEach((s, i) => ScrollTrigger.create({
-                trigger: s, start: 'top center', end: 'bottom center',
-                onToggle: (self) => { if (self.isActive) activate(i); }
-            }));
+
+            steps.forEach((s, i) => {
+                ScrollTrigger.create({
+                    trigger: s,
+                    start: 'top 65%',
+                    end: 'bottom 65%',
+                    onEnter: () => activate(i),
+                    onEnterBack: () => activate(i)
+                });
+            });
             activate(0);
         })();
 
