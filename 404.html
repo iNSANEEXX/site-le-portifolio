@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Página Não Encontrada · Lucas</title>
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#031927">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 1.5rem;
+        }
+        .error-glow {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            border-radius: 50%;
+            filter: blur(140px);
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(186, 18, 0, 0.4), transparent 70%);
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -30%);
+            z-index: 0;
+        }
+        .error-content {
+            position: relative;
+            z-index: 2;
+            max-width: 580px;
+        }
+        .error-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(6rem, 18vw, 11rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--baby);
+            margin-bottom: 1rem;
+            user-select: none;
+        }
+        .error-content h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            margin-bottom: 1rem;
+        }
+        .error-content p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 2.2rem;
+            line-height: 1.6;
+        }
+        .error-actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <main class="error-page">
+        <div class="error-glow" aria-hidden="true"></div>
+        <div class="error-content">
+            <div class="error-num">404</div>
+            <h1>Página <i>não encontrada</i></h1>
+            <p>O link que tentaste aceder pode ter sido movido, apagado ou não existe. Volta ao portfólio para ver os projetos mais recentes.</p>
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary btn-lg">Voltar ao início</a>
+                <a href="https://wa.me/5562995273441?text=Ol%C3%A1%20Lucas!%20Encontrei%20um%20link%20quebrado%20no%20teu%20site." target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Falar no WhatsApp</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
