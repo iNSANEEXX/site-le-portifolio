@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.leportfolio.site/</loc>
-    <lastmod>2026-09-07</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.leportfolio.site/realtor-portfolio.jpg</image:loc>
+      <image:title>Sarah Vance Imóveis de Luxo — Web Design por Lucas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.leportfolio.site/oralprestige-portfolio.jpg</image:loc>
+      <image:title>Dental Prime Clinic — Web Design e Alta Conversão por Lucas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.leportfolio.site/aura-portfolio.jpg</image:loc>
+      <image:title>AURA Dental Studio — Design UI/UX por Lucas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.leportfolio.site/voltz-portfolio.jpg</image:loc>
+      <image:title>Voltz Marketing Agency — Landing Page por Lucas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.leportfolio.site/hero-lucas.jpg</image:loc>
+      <image:title>Lucas — Web Designer e Designer Gráfico em Portugal</image:title>
+    </image:image>
   </url>
 </urlset>

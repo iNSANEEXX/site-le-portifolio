@@ -522,8 +522,20 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
 .statement-glow { position: absolute; width: 60vw; height: 60vw; max-width: 700px; max-height: 700px; left: 50%; top: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(80, 138, 168, .2) 0%, rgba(80, 138, 168, .05) 45%, transparent 70%); pointer-events: none; }
 .statement-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
 .statement-text h2 { font-size: clamp(1.9rem, 3.4vw + 1rem, 3.4rem); margin-bottom: 1.2rem; }
-.statement-text p { color: var(--muted); max-width: 44ch; margin-bottom: 1.8rem; }
-.statement-phone { max-width: 300px; margin: 0 auto; }
+.statement-phone { max-width: 320px; margin: 0 auto; }
+.statement-phone.is-cutout {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
+}
+.statement-phone.is-cutout img {
+    border-radius: 0;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.75));
+    width: 100%;
+    height: auto;
+}
 
 /* 15. PROCESS =================================================== */
 .process-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.5vw, 2rem); }

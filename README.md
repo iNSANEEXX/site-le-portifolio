@@ -10,9 +10,9 @@
 
 ## 📌 Sobre o Projeto
 
-Este repositório contém o código-fonte do website e portfólio oficial de **Lucas**, especialista em **Web Design, Desenvolvimento Front-End e Identidade Visual** com foco no mercado de **Portugal** (clínicas, imobiliárias, serviços e empresas).
+Este repositório contém o código-fonte do website e portfólio oficial de **Lucas**, especialista em **Web Design, Design Gráfico e Identidade Visual** com foco no mercado de **Portugal** (clínicas, imobiliárias, serviços e empresas).
 
-O projeto foi construído do zero com código feito à mão (*handcrafted*), sem a sobrecarga de frameworks pesados ou construtores visuais de CMS (como Elementor/WordPress). O resultado é uma experiência fluida, visualmente marcante e com tempos de carregamento instantâneos.
+O projeto foi construído com design exclusivo sob medida (*custom-crafted*), sem a sobrecarga de templates pesados ou construtores visuais de CMS lentos. O resultado é uma experiência fluida, visualmente marcante e com foco absoluto em autoridade e conversão.
 
 🌐 **Acesse online:** [https://www.leportfolio.site/](https://www.leportfolio.site/)
 
