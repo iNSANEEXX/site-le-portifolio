@@ -118,73 +118,223 @@
             const group = new THREE.Group();
             scene.add(group);
 
-            // 1. Torus Ring (Cyber Deep Teal / Obsidian Glass) - positioned wide on the right
-            const torusGeo = new THREE.TorusGeometry(3.3, 0.95, 30, 60);
-            const torusMat = new THREE.MeshStandardMaterial({
+            // ==========================================================
+            // THEMATIC 3D HERO OBJECTS:
+            // 1. Chart / Growth & Conversão (Right)
+            // 2. Hourglass / Tempo & Velocidade (Left Bottom)
+            // 3. Design Layers & Curva Bézier (Left Top)
+            // ==========================================================
+
+            // --- 1. GRÁFICO 3D (Crescimento, Métricas, Alta Conversão) ---
+            const chartGroup = new THREE.Group();
+            const baseX_chart = 9.2;
+            const baseY_chart = 0.3;
+            chartGroup.position.set(baseX_chart, baseY_chart, -0.6);
+            chartGroup.rotation.set(0.2, -0.45, 0.05);
+
+            // Base chanfrada
+            const chartBase = new THREE.Mesh(
+                new THREE.BoxGeometry(3.6, 0.22, 1.8),
+                new THREE.MeshStandardMaterial({ color: 0x031c22, roughness: 0.2, metalness: 0.85 })
+            );
+            chartGroup.add(chartBase);
+
+            // 4 Barras de crescimento ascendente
+            const barHeights = [1.2, 2.1, 3.2, 4.6];
+            const barXs = [-1.2, -0.4, 0.4, 1.2];
+            const barMat = new THREE.MeshStandardMaterial({
                 color: 0x00404a,
-                emissive: 0x001a1f,
+                emissive: 0x00181d,
                 roughness: 0.15,
-                metalness: 0.85
-            });
-            const torus = new THREE.Mesh(torusGeo, torusMat);
-            const baseX_torus = 9.0;
-            const baseY_torus = 0.4;
-            torus.position.set(baseX_torus, baseY_torus, -1.0);
-            torus.rotation.set(0.6, 0.4, 0.2);
-            group.add(torus);
-
-            // Wireframe accent ring in Acid Lime
-            const wireGeo = new THREE.TorusGeometry(3.32, 0.32, 16, 40);
-            const wireMat = new THREE.MeshBasicMaterial({
-                color: 0xd6fb00,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.28
-            });
-            const wireRing = new THREE.Mesh(wireGeo, wireMat);
-            wireRing.position.copy(torus.position);
-            group.add(wireRing);
-
-            // 2. Floating Crystal / Icosahedron (Acid Lime Glow) - positioned wide on the left
-            const icoGeo = new THREE.IcosahedronGeometry(1.8, 0);
-            const icoMat = new THREE.MeshStandardMaterial({
-                color: 0xd6fb00,
-                emissive: 0x223500,
-                roughness: 0.25,
-                metalness: 0.65,
-                flatShading: true
-            });
-            const ico = new THREE.Mesh(icoGeo, icoMat);
-            const baseX_ico = -9.0;
-            const baseY_ico = -0.6;
-            ico.position.set(baseX_ico, baseY_ico, 0.5);
-            group.add(ico);
-
-            // 3. Mini Floating Satellite Spheres - in the far corners
-            const sphereMatLime = new THREE.MeshStandardMaterial({
-                color: 0xeaffb6,
-                emissive: 0x3d4e00,
-                roughness: 0.1,
                 metalness: 0.9
             });
-            const sphereMatTeal = new THREE.MeshStandardMaterial({
-                color: 0x00545f,
-                emissive: 0x002228,
+            const capMat = new THREE.MeshStandardMaterial({
+                color: 0xd6fb00,
+                emissive: 0x3d4e00,
                 roughness: 0.2,
-                metalness: 0.8
+                metalness: 0.3
             });
 
-            const sphere1 = new THREE.Mesh(new THREE.SphereGeometry(0.7, 24, 24), sphereMatLime);
-            const baseX_s1 = -8.2;
-            const baseY_s1 = 4.2;
-            sphere1.position.set(baseX_s1, baseY_s1, 0.8);
-            group.add(sphere1);
+            for (let i = 0; i < 4; i++) {
+                const h = barHeights[i];
+                const bar = new THREE.Mesh(new THREE.BoxGeometry(0.58, h, 0.58), barMat);
+                bar.position.set(barXs[i], h / 2 + 0.11, 0);
+                chartGroup.add(bar);
 
-            const sphere2 = new THREE.Mesh(new THREE.SphereGeometry(0.55, 20, 20), sphereMatTeal);
-            const baseX_s2 = 9.6;
-            const baseY_s2 = -3.8;
-            sphere2.position.set(baseX_s2, baseY_s2, 0.8);
-            group.add(sphere2);
+                const cap = new THREE.Mesh(new THREE.BoxGeometry(0.60, 0.12, 0.60), capMat);
+                cap.position.set(barXs[i], h + 0.17, 0);
+                chartGroup.add(cap);
+            }
+
+            // Curva ascendente de conversão / fita de alta performance
+            const curve = new THREE.CatmullRomCurve3([
+                new THREE.Vector3(-1.2, 1.3, 0.38),
+                new THREE.Vector3(-0.4, 2.2, 0.40),
+                new THREE.Vector3(0.4, 3.3, 0.42),
+                new THREE.Vector3(1.2, 4.7, 0.45),
+                new THREE.Vector3(1.55, 5.15, 0.48)
+            ]);
+            const tube = new THREE.Mesh(
+                new THREE.TubeGeometry(curve, 32, 0.07, 10, false),
+                new THREE.MeshBasicMaterial({ color: 0xd6fb00 })
+            );
+            chartGroup.add(tube);
+
+            // Seta e orb de pico no topo do gráfico
+            const arrow = new THREE.Mesh(
+                new THREE.ConeGeometry(0.24, 0.45, 16),
+                new THREE.MeshBasicMaterial({ color: 0xd6fb00 })
+            );
+            arrow.position.set(1.55, 5.15, 0.48);
+            arrow.rotation.z = -0.45;
+            chartGroup.add(arrow);
+
+            const targetPulse = new THREE.Mesh(
+                new THREE.SphereGeometry(0.22, 20, 20),
+                new THREE.MeshBasicMaterial({ color: 0xeaffb6 })
+            );
+            targetPulse.position.set(1.2, 4.85, 0.45);
+            chartGroup.add(targetPulse);
+
+            group.add(chartGroup);
+
+            // --- 2. AMPULHETA 3D (Tempo, Agilidade, Entrega Rápida) ---
+            const hgGroup = new THREE.Group();
+            const baseX_hg = -9.2;
+            const baseY_hg = -1.8;
+            hgGroup.position.set(baseX_hg, baseY_hg, 0.5);
+            hgGroup.rotation.set(0.18, 0.35, 0.22);
+
+            const capMetal = new THREE.MeshStandardMaterial({
+                color: 0x00545f,
+                metalness: 0.9,
+                roughness: 0.2
+            });
+            const glassMat = new THREE.MeshStandardMaterial({
+                color: 0x00545f,
+                roughness: 0.1,
+                metalness: 0.85,
+                transparent: true,
+                opacity: 0.42
+            });
+
+            // Tampas superior e inferior
+            const capTop = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 0.18, 32), capMetal);
+            capTop.position.y = 1.9;
+            hgGroup.add(capTop);
+
+            const capBottom = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 0.18, 32), capMetal);
+            capBottom.position.y = -1.9;
+            hgGroup.add(capBottom);
+
+            // Bulbos de vidro cônico
+            const coneTop = new THREE.Mesh(new THREE.ConeGeometry(1.35, 1.8, 28, 1, true), glassMat);
+            coneTop.rotation.x = Math.PI;
+            coneTop.position.y = 0.9;
+            hgGroup.add(coneTop);
+
+            const coneBottom = new THREE.Mesh(new THREE.ConeGeometry(1.35, 1.8, 28, 1, true), glassMat);
+            coneBottom.position.y = -0.9;
+            hgGroup.add(coneBottom);
+
+            // Anel central Acid Lime
+            const centerRing = new THREE.Mesh(
+                new THREE.TorusGeometry(0.38, 0.09, 16, 32),
+                new THREE.MeshBasicMaterial({ color: 0xd6fb00 })
+            );
+            centerRing.rotation.x = Math.PI / 2;
+            hgGroup.add(centerRing);
+
+            // Struts / Colunas laterais
+            for (let i = 0; i < 3; i++) {
+                const angle = (i * 2 * Math.PI) / 3;
+                const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 3.8, 12), capMetal);
+                strut.position.set(Math.cos(angle) * 1.25, 0, Math.sin(angle) * 1.25);
+                hgGroup.add(strut);
+            }
+
+            // Partículas de areia/luz (fluxo contínuo de tempo)
+            const sandParticles = [];
+            for (let i = 0; i < 6; i++) {
+                const p = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.07, 10, 10),
+                    new THREE.MeshBasicMaterial({ color: 0xd6fb00 })
+                );
+                p.position.set((Math.random() - 0.5) * 0.25, 1.0 - i * 0.45, (Math.random() - 0.5) * 0.25);
+                hgGroup.add(p);
+                sandParticles.push(p);
+            }
+
+            group.add(hgGroup);
+
+            // --- 3. DESIGN 3D (Camadas UI & Curva Bézier / Pen Tool) ---
+            const designGroup = new THREE.Group();
+            const baseX_design = -8.8;
+            const baseY_design = 2.8;
+            designGroup.position.set(baseX_design, baseY_design, 0.5);
+            designGroup.rotation.set(0.32, -0.45, -0.08);
+
+            // Camadas / Artboards UI escalonados
+            const l1 = new THREE.Mesh(
+                new THREE.BoxGeometry(3.0, 2.0, 0.05),
+                new THREE.MeshStandardMaterial({ color: 0x021f26, transparent: true, opacity: 0.5, metalness: 0.8 })
+            );
+            designGroup.add(l1);
+
+            const l2 = new THREE.Mesh(
+                new THREE.BoxGeometry(2.6, 1.7, 0.05),
+                new THREE.MeshStandardMaterial({ color: 0x00333c, transparent: true, opacity: 0.65, metalness: 0.85 })
+            );
+            l2.position.set(0.25, 0.25, 0.35);
+            designGroup.add(l2);
+
+            const l3 = new THREE.Mesh(
+                new THREE.BoxGeometry(2.2, 1.4, 0.05),
+                new THREE.MeshStandardMaterial({ color: 0x00404a, metalness: 0.9, roughness: 0.15 })
+            );
+            l3.position.set(0.5, 0.5, 0.7);
+            designGroup.add(l3);
+
+            // Ferramenta Pen Tool / Nó de Âncora Vetorial com Alças Bézier
+            const anchorNode = new THREE.Mesh(
+                new THREE.OctahedronGeometry(0.28, 0),
+                new THREE.MeshStandardMaterial({ color: 0xd6fb00, emissive: 0x445500, metalness: 0.4, roughness: 0.2 })
+            );
+            anchorNode.position.set(0.5, 0.5, 0.8);
+            designGroup.add(anchorNode);
+
+            // Haste Bézier esquerda e direita
+            const handle1 = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.025, 0.025, 1.2, 12),
+                new THREE.MeshBasicMaterial({ color: 0xd6fb00 })
+            );
+            handle1.position.set(0.5 + 0.42, 0.5 + 0.42, 0.8);
+            handle1.rotation.z = Math.PI / 4;
+            designGroup.add(handle1);
+
+            const dot1 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.09, 12, 12),
+                new THREE.MeshBasicMaterial({ color: 0xeaffb6 })
+            );
+            dot1.position.set(0.5 + 0.85, 0.5 + 0.85, 0.8);
+            designGroup.add(dot1);
+
+            const handle2 = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.025, 0.025, 1.2, 12),
+                new THREE.MeshBasicMaterial({ color: 0xd6fb00 })
+            );
+            handle2.position.set(0.5 - 0.42, 0.5 - 0.42, 0.8);
+            handle2.rotation.z = Math.PI / 4;
+            designGroup.add(handle2);
+
+            const dot2 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.09, 12, 12),
+                new THREE.MeshBasicMaterial({ color: 0xeaffb6 })
+            );
+            dot2.position.set(0.5 - 0.85, 0.5 - 0.85, 0.8);
+            designGroup.add(dot2);
+
+            group.add(designGroup);
 
             // Lights
             const keyLight = new THREE.DirectionalLight(0xd6fb00, 2.5);
@@ -210,28 +360,22 @@
                 camera.aspect = width / height;
                 if (width <= 680) {
                     camera.position.z = 24;
-                    group.scale.set(0.65, 0.65, 0.65);
-                    torus.position.x = 7.0;
-                    wireRing.position.x = 7.0;
-                    ico.position.x = -7.0;
-                    sphere1.position.x = -6.5;
-                    sphere2.position.x = 7.2;
+                    group.scale.set(0.62, 0.62, 0.62);
+                    chartGroup.position.set(6.8, -3.2, 0);
+                    designGroup.position.set(-6.8, 3.2, 0);
+                    hgGroup.position.set(-6.8, -3.2, 0);
                 } else if (width <= 1100) {
                     camera.position.z = 21;
-                    group.scale.set(0.8, 0.8, 0.8);
-                    torus.position.x = 8.2;
-                    wireRing.position.x = 8.2;
-                    ico.position.x = -8.2;
-                    sphere1.position.x = -7.4;
-                    sphere2.position.x = 8.6;
+                    group.scale.set(0.78, 0.78, 0.78);
+                    chartGroup.position.set(8.2, baseY_chart, -0.6);
+                    designGroup.position.set(-8.0, baseY_design, 0.5);
+                    hgGroup.position.set(-8.2, baseY_hg, 0.5);
                 } else {
                     camera.position.z = 18;
                     group.scale.set(1, 1, 1);
-                    torus.position.x = baseX_torus;
-                    wireRing.position.x = baseX_torus;
-                    ico.position.x = baseX_ico;
-                    sphere1.position.x = baseX_s1;
-                    sphere2.position.x = baseX_s2;
+                    chartGroup.position.set(baseX_chart, baseY_chart, -0.6);
+                    designGroup.position.set(baseX_design, baseY_design, 0.5);
+                    hgGroup.position.set(baseX_hg, baseY_hg, 0.5);
                 }
                 camera.updateProjectionMatrix();
                 renderer.setSize(width, height);
@@ -259,29 +403,33 @@
                 if (!isVisible) return;
                 const elapsed = clock.getElapsedTime();
 
-                // Continuous 3D rotation & bobbing
-                torus.rotation.x = elapsed * 0.35;
-                torus.rotation.y = elapsed * 0.45;
-                wireRing.rotation.x = -elapsed * 0.25;
-                wireRing.rotation.y = elapsed * 0.38;
+                // 1. Gráfico: rotação sutil e bobbing de flutuação
+                chartGroup.rotation.y = -0.45 + Math.sin(elapsed * 0.7) * 0.12;
+                chartGroup.position.y = baseY_chart + Math.sin(elapsed * 1.1) * 0.32;
+                const pulse = 1 + Math.sin(elapsed * 3.5) * 0.18;
+                targetPulse.scale.set(pulse, pulse, pulse);
 
-                ico.rotation.x = -elapsed * 0.4;
-                ico.rotation.y = elapsed * 0.5;
-                ico.rotation.z = elapsed * 0.2;
+                // 2. Ampulheta: rotação suave, flutuação e fluxo contínuo de areia
+                hgGroup.position.y = baseY_hg + Math.cos(elapsed * 1.0) * 0.3;
+                hgGroup.rotation.y = 0.35 + Math.sin(elapsed * 0.5) * 0.1;
+                for (let i = 0; i < sandParticles.length; i++) {
+                    const sp = sandParticles[i];
+                    sp.position.y -= 0.035;
+                    if (sp.position.y < -1.4) {
+                        sp.position.y = 1.2;
+                    }
+                }
 
-                // Subtle orbital floating around dedicated base Y coordinates
-                torus.position.y = baseY_torus + Math.sin(elapsed * 1.2) * 0.38;
-                wireRing.position.y = torus.position.y;
-                ico.position.y = baseY_ico + Math.cos(elapsed * 1.1) * 0.42;
-                sphere1.position.y = baseY_s1 + Math.sin(elapsed * 1.5) * 0.3;
-                sphere2.position.y = baseY_s2 + Math.cos(elapsed * 1.4) * 0.3;
+                // 3. Design: flutuação suave e rotação em órbita de vetor
+                designGroup.position.y = baseY_design + Math.sin(elapsed * 0.9) * 0.3;
+                designGroup.rotation.y = -0.45 + Math.cos(elapsed * 0.6) * 0.12;
 
                 // Smooth Parallax Lerp (subtle)
                 mouseX += (targetX - mouseX) * 0.035;
                 mouseY += (targetY - mouseY) * 0.035;
 
-                group.rotation.y = mouseX * 0.25 + Math.sin(elapsed * 0.2) * 0.08;
-                group.rotation.x = -mouseY * 0.2 + Math.cos(elapsed * 0.2) * 0.06;
+                group.rotation.y = mouseX * 0.22 + Math.sin(elapsed * 0.2) * 0.06;
+                group.rotation.x = -mouseY * 0.18 + Math.cos(elapsed * 0.2) * 0.05;
 
                 renderer.render(scene, camera);
                 animId = requestAnimationFrame(render);
