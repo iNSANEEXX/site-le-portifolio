@@ -596,78 +596,17 @@
            MOTION DESIGN ENGINE (Cinematic 60Hz/120Hz Native Accelerated Reel)
            ========================================================================== */
 
-        /* 1. HERO 3D INTRO MONTAGE & DYNAMIC CAMERA PASS */
+        /* 1. HERO HIGHLIGHTS & AMBIENT MOTION */
         (() => {
-            const browserMock = $('.hero-stage .mock-browser');
-            const phoneMock = $('.hero-stage .mock-phone');
-            const browserFloat = $('.hero-float-browser');
-            const phoneFloat = $('.hero-float-phone');
-
-            // Immediate intro sequence with 3D sweep (renders instantly, no blank delay)
-            if (browserMock) {
-                gsap.from(browserMock, {
-                    y: 32,
-                    scale: 0.96,
-                    rotateX: 6,
-                    duration: 0.65,
+            const pills = $$('.hero-pill');
+            if (pills && pills.length) {
+                gsap.from(pills, {
+                    y: 18,
+                    opacity: 0,
+                    stagger: 0.12,
+                    duration: 0.7,
+                    delay: 0.35,
                     ease: 'power3.out'
-                });
-                if (fine && window.innerWidth > 680) {
-                    gsap.to(browserMock, {
-                        y: -10,
-                        duration: 3.8,
-                        repeat: -1,
-                        yoyo: true,
-                        ease: 'sine.inOut',
-                        delay: 0.7
-                    });
-                }
-            }
-            if (phoneMock) {
-                gsap.from(phoneMock, {
-                    y: 45,
-                    x: 20,
-                    scale: 0.9,
-                    rotateZ: 3,
-                    duration: 0.75,
-                    ease: 'back.out(1.2)'
-                });
-                if (fine && window.innerWidth > 680) {
-                    gsap.to(phoneMock, {
-                        y: -14,
-                        duration: 4.4,
-                        repeat: -1,
-                        yoyo: true,
-                        ease: 'sine.inOut',
-                        delay: 0.8
-                    });
-                }
-            }
-
-            // On scroll: subtle depth parallax pass (desktop only)
-            if (phoneFloat && browserFloat && window.innerWidth > 680) {
-                gsap.to(phoneFloat, {
-                    yPercent: -14,
-                    xPercent: -3,
-                    rotateZ: -2,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#hero',
-                        start: 'top top',
-                        end: 'bottom top',
-                        scrub: 0.6
-                    }
-                });
-                gsap.to(browserFloat, {
-                    yPercent: 6,
-                    scale: 0.98,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#hero',
-                        start: 'top top',
-                        end: 'bottom top',
-                        scrub: 0.6
-                    }
                 });
             }
         })();
