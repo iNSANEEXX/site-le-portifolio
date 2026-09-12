@@ -13,3 +13,6 @@ yarn-debug.log*
 
 # Node / Dependências
 node_modules/
+
+.vercel
+.env*
