@@ -54,7 +54,8 @@ O projeto foi construído com design exclusivo sob medida (*custom-crafted*), se
 
 ```text
 site-le-portifolio/
-├── .htaccess                 # Regras Apache: compressão, cache, SSL e headers de segurança
+├── .htaccess                 # Regras Apache/LiteSpeed: compressão, cache e SSL
+├── vercel.json               # Configuração de deploy, clean URLs e cache para Vercel
 ├── 404.html                  # Página de erro 404 personalizada
 ├── index.html                # Página principal (estrutura semântica e SEO)
 ├── robots.txt                # Diretivas para motores de busca
@@ -111,6 +112,16 @@ Como o projeto é construído em código web estático puro, não é necessário
    - Dê dois cliques no arquivo `index.html`, ou
    - Utilize uma extensão como o **Live Server** no VS Code para hot reload automático:
      - Clique com o botão direito no `index.html` > *Open with Live Server*.
+
+---
+
+## ⚡ Deploy no Vercel
+
+O projeto já possui configuração nativa no [vercel.json](vercel.json):
+1. Importe o repositório na [Vercel](https://vercel.com/new).
+2. Framework Preset: **Other** (detetado automaticamente).
+3. Root Directory: `./` (padrão).
+4. Clique em **Deploy**. O Vercel aplicará automaticamente *clean URLs*, compressão Edge e cabeçalhos de segurança HTTP.
 
 ---
 
