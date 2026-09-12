@@ -276,6 +276,17 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     max-width: 900px;
     margin: 0 auto;
 }
+.canvas-3d {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    mask-image: radial-gradient(ellipse 62% 52% at 50% 48%, transparent 30%, black 75%);
+    -webkit-mask-image: radial-gradient(ellipse 62% 52% at 50% 48%, transparent 30%, black 75%);
+}
 .hero-glow { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
 .hero-glow-red {
     width: 48vw; height: 48vw; max-width: 600px; max-height: 600px;
@@ -294,8 +305,8 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     gap: 8px;
     padding: 7px 18px;
     border-radius: 100px;
-    background: rgba(214, 251, 0, 0.08);
-    border: 1px solid rgba(214, 251, 0, 0.24);
+    background: rgba(2, 20, 24, 0.85);
+    border: 1px solid rgba(214, 251, 0, 0.3);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     font-size: 0.82rem;
@@ -304,6 +315,7 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     text-transform: uppercase;
     color: var(--baby);
     margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 .hero-title {
     font-size: clamp(2.6rem, 5.8vw, 5.2rem);
@@ -312,15 +324,17 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     margin: 0 auto 1.4rem;
     word-break: break-word;
     color: var(--white);
+    text-shadow: 0 4px 30px rgba(2, 20, 24, 0.95);
 }
 .hero-title i { font-size: 1.06em; }
 .hero-title strong { font-weight: inherit; }
 .hero-sub {
     font-size: clamp(1.05rem, 0.8vw + 0.8rem, 1.22rem);
     line-height: 1.68;
-    color: var(--muted);
+    color: var(--sky);
     max-width: 58ch;
     margin: 0 auto 2.4rem;
+    text-shadow: 0 2px 20px rgba(2, 20, 24, 0.95);
 }
 .hero-sub strong { color: var(--sky); font-weight: 500; }
 .hero-cta {

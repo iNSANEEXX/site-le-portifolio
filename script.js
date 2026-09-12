@@ -118,8 +118,8 @@
             const group = new THREE.Group();
             scene.add(group);
 
-            // 1. Torus Ring (Cyber Deep Teal / Obsidian Glass)
-            const torusGeo = new THREE.TorusGeometry(3.6, 1.05, 30, 60);
+            // 1. Torus Ring (Cyber Deep Teal / Obsidian Glass) - positioned wide on the right
+            const torusGeo = new THREE.TorusGeometry(3.3, 0.95, 30, 60);
             const torusMat = new THREE.MeshStandardMaterial({
                 color: 0x00404a,
                 emissive: 0x001a1f,
@@ -127,12 +127,14 @@
                 metalness: 0.85
             });
             const torus = new THREE.Mesh(torusGeo, torusMat);
-            torus.position.set(4.8, 1.2, -1.5);
+            const baseX_torus = 9.0;
+            const baseY_torus = 0.4;
+            torus.position.set(baseX_torus, baseY_torus, -1.0);
             torus.rotation.set(0.6, 0.4, 0.2);
             group.add(torus);
 
             // Wireframe accent ring in Acid Lime
-            const wireGeo = new THREE.TorusGeometry(3.62, 0.35, 16, 40);
+            const wireGeo = new THREE.TorusGeometry(3.32, 0.32, 16, 40);
             const wireMat = new THREE.MeshBasicMaterial({
                 color: 0xd6fb00,
                 wireframe: true,
@@ -143,8 +145,8 @@
             wireRing.position.copy(torus.position);
             group.add(wireRing);
 
-            // 2. Floating Crystal / Icosahedron (Acid Lime Glow)
-            const icoGeo = new THREE.IcosahedronGeometry(1.9, 0);
+            // 2. Floating Crystal / Icosahedron (Acid Lime Glow) - positioned wide on the left
+            const icoGeo = new THREE.IcosahedronGeometry(1.8, 0);
             const icoMat = new THREE.MeshStandardMaterial({
                 color: 0xd6fb00,
                 emissive: 0x223500,
@@ -153,10 +155,12 @@
                 flatShading: true
             });
             const ico = new THREE.Mesh(icoGeo, icoMat);
-            ico.position.set(-5.5, -2.2, 0.5);
+            const baseX_ico = -9.0;
+            const baseY_ico = -0.6;
+            ico.position.set(baseX_ico, baseY_ico, 0.5);
             group.add(ico);
 
-            // 3. Mini Floating Satellite Spheres
+            // 3. Mini Floating Satellite Spheres - in the far corners
             const sphereMatLime = new THREE.MeshStandardMaterial({
                 color: 0xeaffb6,
                 emissive: 0x3d4e00,
@@ -170,12 +174,16 @@
                 metalness: 0.8
             });
 
-            const sphere1 = new THREE.Mesh(new THREE.SphereGeometry(0.75, 24, 24), sphereMatLime);
-            sphere1.position.set(-3.8, 3.2, 1.2);
+            const sphere1 = new THREE.Mesh(new THREE.SphereGeometry(0.7, 24, 24), sphereMatLime);
+            const baseX_s1 = -8.2;
+            const baseY_s1 = 4.2;
+            sphere1.position.set(baseX_s1, baseY_s1, 0.8);
             group.add(sphere1);
 
             const sphere2 = new THREE.Mesh(new THREE.SphereGeometry(0.55, 20, 20), sphereMatTeal);
-            sphere2.position.set(6.2, -3.5, 0.8);
+            const baseX_s2 = 9.6;
+            const baseY_s2 = -3.8;
+            sphere2.position.set(baseX_s2, baseY_s2, 0.8);
             group.add(sphere2);
 
             // Lights
@@ -202,13 +210,28 @@
                 camera.aspect = width / height;
                 if (width <= 680) {
                     camera.position.z = 24;
-                    group.scale.set(0.75, 0.75, 0.75);
-                } else if (width <= 1024) {
+                    group.scale.set(0.65, 0.65, 0.65);
+                    torus.position.x = 7.0;
+                    wireRing.position.x = 7.0;
+                    ico.position.x = -7.0;
+                    sphere1.position.x = -6.5;
+                    sphere2.position.x = 7.2;
+                } else if (width <= 1100) {
                     camera.position.z = 21;
-                    group.scale.set(0.85, 0.85, 0.85);
+                    group.scale.set(0.8, 0.8, 0.8);
+                    torus.position.x = 8.2;
+                    wireRing.position.x = 8.2;
+                    ico.position.x = -8.2;
+                    sphere1.position.x = -7.4;
+                    sphere2.position.x = 8.6;
                 } else {
                     camera.position.z = 18;
                     group.scale.set(1, 1, 1);
+                    torus.position.x = baseX_torus;
+                    wireRing.position.x = baseX_torus;
+                    ico.position.x = baseX_ico;
+                    sphere1.position.x = baseX_s1;
+                    sphere2.position.x = baseX_s2;
                 }
                 camera.updateProjectionMatrix();
                 renderer.setSize(width, height);
@@ -246,19 +269,19 @@
                 ico.rotation.y = elapsed * 0.5;
                 ico.rotation.z = elapsed * 0.2;
 
-                // Subtle orbital floating
-                torus.position.y = 1.2 + Math.sin(elapsed * 1.2) * 0.45;
+                // Subtle orbital floating around dedicated base Y coordinates
+                torus.position.y = baseY_torus + Math.sin(elapsed * 1.2) * 0.38;
                 wireRing.position.y = torus.position.y;
-                ico.position.y = -2.2 + Math.cos(elapsed * 1.1) * 0.55;
-                sphere1.position.y = 3.2 + Math.sin(elapsed * 1.5) * 0.35;
-                sphere2.position.y = -3.5 + Math.cos(elapsed * 1.4) * 0.35;
+                ico.position.y = baseY_ico + Math.cos(elapsed * 1.1) * 0.42;
+                sphere1.position.y = baseY_s1 + Math.sin(elapsed * 1.5) * 0.3;
+                sphere2.position.y = baseY_s2 + Math.cos(elapsed * 1.4) * 0.3;
 
-                // Smooth Parallax Lerp
-                mouseX += (targetX - mouseX) * 0.04;
-                mouseY += (targetY - mouseY) * 0.04;
+                // Smooth Parallax Lerp (subtle)
+                mouseX += (targetX - mouseX) * 0.035;
+                mouseY += (targetY - mouseY) * 0.035;
 
-                group.rotation.y = mouseX * 0.35 + Math.sin(elapsed * 0.2) * 0.1;
-                group.rotation.x = -mouseY * 0.25 + Math.cos(elapsed * 0.2) * 0.08;
+                group.rotation.y = mouseX * 0.25 + Math.sin(elapsed * 0.2) * 0.08;
+                group.rotation.x = -mouseY * 0.2 + Math.cos(elapsed * 0.2) * 0.06;
 
                 renderer.render(scene, camera);
                 animId = requestAnimationFrame(render);
