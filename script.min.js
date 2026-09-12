@@ -71,8 +71,8 @@
                         ctx.beginPath();
                         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                         ctx.fillStyle = p.isEmber
-                            ? `rgba(186, 18, 0, ${currentAlpha * 0.85})`
-                            : `rgba(157, 209, 241, ${currentAlpha * 0.75})`;
+                            ? `rgba(214, 251, 0, ${currentAlpha * 0.9})`
+                            : `rgba(0, 84, 95, ${currentAlpha * 0.85})`;
                         ctx.fill();
                     }
                     rafId = requestAnimationFrame(draw);
@@ -85,6 +85,198 @@
                 });
             })();
         }
+
+        
+        /* ---------- Interactive 3D WebGL Moving Objects (Three.js) ---------- */
+        (() => {
+            const canvas = document.getElementById('canvas3d');
+            if (!canvas || !window.THREE) return;
+
+            const hero = document.getElementById('hero');
+            const scene = new THREE.Scene();
+
+            const getHeroSize = () => ({
+                width: hero ? hero.clientWidth : window.innerWidth,
+                height: hero ? hero.clientHeight : window.innerHeight
+            });
+
+            let { width, height } = getHeroSize();
+
+            const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            camera.position.z = 18;
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas,
+                alpha: true,
+                antialias: true,
+                powerPreference: 'high-performance'
+            });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(width, height);
+
+            // Group containing 3D floating shapes
+            const group = new THREE.Group();
+            scene.add(group);
+
+            // 1. Torus Ring (Cyber Deep Teal / Obsidian Glass)
+            const torusGeo = new THREE.TorusGeometry(3.6, 1.05, 30, 60);
+            const torusMat = new THREE.MeshStandardMaterial({
+                color: 0x00404a,
+                emissive: 0x001a1f,
+                roughness: 0.15,
+                metalness: 0.85
+            });
+            const torus = new THREE.Mesh(torusGeo, torusMat);
+            torus.position.set(4.8, 1.2, -1.5);
+            torus.rotation.set(0.6, 0.4, 0.2);
+            group.add(torus);
+
+            // Wireframe accent ring in Acid Lime
+            const wireGeo = new THREE.TorusGeometry(3.62, 0.35, 16, 40);
+            const wireMat = new THREE.MeshBasicMaterial({
+                color: 0xd6fb00,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.28
+            });
+            const wireRing = new THREE.Mesh(wireGeo, wireMat);
+            wireRing.position.copy(torus.position);
+            group.add(wireRing);
+
+            // 2. Floating Crystal / Icosahedron (Acid Lime Glow)
+            const icoGeo = new THREE.IcosahedronGeometry(1.9, 0);
+            const icoMat = new THREE.MeshStandardMaterial({
+                color: 0xd6fb00,
+                emissive: 0x223500,
+                roughness: 0.25,
+                metalness: 0.65,
+                flatShading: true
+            });
+            const ico = new THREE.Mesh(icoGeo, icoMat);
+            ico.position.set(-5.5, -2.2, 0.5);
+            group.add(ico);
+
+            // 3. Mini Floating Satellite Spheres
+            const sphereMatLime = new THREE.MeshStandardMaterial({
+                color: 0xeaffb6,
+                emissive: 0x3d4e00,
+                roughness: 0.1,
+                metalness: 0.9
+            });
+            const sphereMatTeal = new THREE.MeshStandardMaterial({
+                color: 0x00545f,
+                emissive: 0x002228,
+                roughness: 0.2,
+                metalness: 0.8
+            });
+
+            const sphere1 = new THREE.Mesh(new THREE.SphereGeometry(0.75, 24, 24), sphereMatLime);
+            sphere1.position.set(-3.8, 3.2, 1.2);
+            group.add(sphere1);
+
+            const sphere2 = new THREE.Mesh(new THREE.SphereGeometry(0.55, 20, 20), sphereMatTeal);
+            sphere2.position.set(6.2, -3.5, 0.8);
+            group.add(sphere2);
+
+            // Lights
+            const keyLight = new THREE.DirectionalLight(0xd6fb00, 2.5);
+            keyLight.position.set(5, 8, 8);
+            scene.add(keyLight);
+
+            const rimLight = new THREE.DirectionalLight(0x00545f, 4.0);
+            rimLight.position.set(-8, -5, -4);
+            scene.add(rimLight);
+
+            const ambientLight = new THREE.AmbientLight(0x03181d, 1.8);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xeaffb6, 1.5, 30);
+            pointLight.position.set(0, 2, 6);
+            scene.add(pointLight);
+
+            // Responsive Resize
+            const onResize = () => {
+                const s = getHeroSize();
+                width = s.width;
+                height = s.height;
+                camera.aspect = width / height;
+                if (width <= 680) {
+                    camera.position.z = 24;
+                    group.scale.set(0.75, 0.75, 0.75);
+                } else if (width <= 1024) {
+                    camera.position.z = 21;
+                    group.scale.set(0.85, 0.85, 0.85);
+                } else {
+                    camera.position.z = 18;
+                    group.scale.set(1, 1, 1);
+                }
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            };
+            onResize();
+            window.addEventListener('resize', onResize, { passive: true });
+
+            // Interactive Mouse Parallax (Lerp)
+            let mouseX = 0, mouseY = 0;
+            let targetX = 0, targetY = 0;
+
+            if (fine) {
+                window.addEventListener('mousemove', (e) => {
+                    targetX = (e.clientX / window.innerWidth - 0.5) * 2;
+                    targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+                }, { passive: true });
+            }
+
+            // Render loop with clock & visibility pause
+            const clock = new THREE.Clock();
+            let animId = null;
+            let isVisible = true;
+
+            const render = () => {
+                if (!isVisible) return;
+                const elapsed = clock.getElapsedTime();
+
+                // Continuous 3D rotation & bobbing
+                torus.rotation.x = elapsed * 0.35;
+                torus.rotation.y = elapsed * 0.45;
+                wireRing.rotation.x = -elapsed * 0.25;
+                wireRing.rotation.y = elapsed * 0.38;
+
+                ico.rotation.x = -elapsed * 0.4;
+                ico.rotation.y = elapsed * 0.5;
+                ico.rotation.z = elapsed * 0.2;
+
+                // Subtle orbital floating
+                torus.position.y = 1.2 + Math.sin(elapsed * 1.2) * 0.45;
+                wireRing.position.y = torus.position.y;
+                ico.position.y = -2.2 + Math.cos(elapsed * 1.1) * 0.55;
+                sphere1.position.y = 3.2 + Math.sin(elapsed * 1.5) * 0.35;
+                sphere2.position.y = -3.5 + Math.cos(elapsed * 1.4) * 0.35;
+
+                // Smooth Parallax Lerp
+                mouseX += (targetX - mouseX) * 0.04;
+                mouseY += (targetY - mouseY) * 0.04;
+
+                group.rotation.y = mouseX * 0.35 + Math.sin(elapsed * 0.2) * 0.1;
+                group.rotation.x = -mouseY * 0.25 + Math.cos(elapsed * 0.2) * 0.08;
+
+                renderer.render(scene, camera);
+                animId = requestAnimationFrame(render);
+            };
+
+            render();
+
+            // Lifecycle / Battery saving
+            document.addEventListener('visibilitychange', () => {
+                isVisible = !document.hidden;
+                if (isVisible) {
+                    clock.start();
+                    render();
+                } else if (animId) {
+                    cancelAnimationFrame(animId);
+                }
+            });
+        })();
 
         /* ---------- Instant Ready Signal ---------- */
         document.documentElement.classList.remove('is-loading');
@@ -501,27 +693,6 @@
             });
         })();
 
-        /* 4. STATEMENT 3D ORBITAL PHONE SPIN (Desktop Only) */
-        if (fine && window.innerWidth > 680) {
-            const stPhone = $('.statement-phone');
-            if (stPhone) {
-                gsap.fromTo(stPhone,
-                    { rotateY: -8, rotateX: 5, scale: 0.96 },
-                    {
-                        rotateY: 10,
-                        rotateX: -4,
-                        scale: 1.02,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: '#statement',
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: 0.8
-                        }
-                    }
-                );
-            }
-        }
 
         /* 4. CINEMATIC HEADLINE REVEAL (Hero Word Reel + Snappy Section Rise) */
         const splitWords = (el) => {

@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1414" font-family="Space Grotesk, system-ui, sans-serif">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9DD1F1"/><stop offset="1" stop-color="#508AA8"/></linearGradient></defs>
-  <rect width="1000" height="1414" fill="#052330"/>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6fb00"/><stop offset="1" stop-color="#00545f"/></linearGradient></defs>
+  <rect width="1000" height="1414" fill="#041c22"/>
   <circle cx="720" cy="452" r="282" fill="url(#g)" opacity="0.16"/>
-  <path d="M100 917 C100 996 22 1074 -57 1074 C22 1074 100 1152 100 1231 C100 1152 178 1074 257 1074 C178 1074 100 996 100 917 Z" fill="#BA1200"/>
-  <text x="83" y="176" fill="#7098AD" font-size="44" letter-spacing="5">PRINT</text>
-  <text x="83" y="311" fill="#EAF4FC" font-size="108" font-weight="700">Cartaz e flyer</text>
-  <text x="83" y="395" fill="#7098AD" font-size="41">1000 x 1414 &#183; placeholder</text>
+  <path d="M100 917 C100 996 22 1074 -57 1074 C22 1074 100 1152 100 1231 C100 1152 178 1074 257 1074 C178 1074 100 996 100 917 Z" fill="#d6fb00"/>
+  <text x="83" y="176" fill="#6e948e" font-size="44" letter-spacing="5">PRINT</text>
+  <text x="83" y="311" fill="#f5ffe6" font-size="108" font-weight="700">Cartaz e flyer</text>
+  <text x="83" y="395" fill="#6e948e" font-size="41">1000 x 1414 &#183; placeholder</text>
 </svg>

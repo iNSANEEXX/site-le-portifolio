@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Space Grotesk, system-ui, sans-serif">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9DD1F1"/><stop offset="1" stop-color="#508AA8"/></linearGradient></defs>
-  <rect width="1600" height="1200" fill="#052330"/>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6fb00"/><stop offset="1" stop-color="#00545f"/></linearGradient></defs>
+  <rect width="1600" height="1200" fill="#041c22"/>
   <circle cx="1152" cy="384" r="240" fill="url(#g)" opacity="0.16"/>
-  <path d="M160 779 C160 846 94 912 27 912 C94 912 160 978 160 1045 C160 978 226 912 293 912 C226 912 160 846 160 779 Z" fill="#BA1200"/>
-  <text x="133" y="150" fill="#7098AD" font-size="37" letter-spacing="5">MOCKUP</text>
-  <text x="133" y="264" fill="#EAF4FC" font-size="92" font-weight="700">Aplicacao da marca</text>
-  <text x="133" y="336" fill="#7098AD" font-size="35">1600 x 1200 &#183; placeholder</text>
+  <path d="M160 779 C160 846 94 912 27 912 C94 912 160 978 160 1045 C160 978 226 912 293 912 C226 912 160 846 160 779 Z" fill="#d6fb00"/>
+  <text x="133" y="150" fill="#6e948e" font-size="37" letter-spacing="5">MOCKUP</text>
+  <text x="133" y="264" fill="#f5ffe6" font-size="92" font-weight="700">Aplicacao da marca</text>
+  <text x="133" y="336" fill="#6e948e" font-size="35">1600 x 1200 &#183; placeholder</text>
 </svg>

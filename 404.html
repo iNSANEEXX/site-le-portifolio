@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 — Página Não Encontrada · Lucas</title>
     <meta name="robots" content="noindex, follow">
-    <meta name="theme-color" content="#031927">
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#021418">
+    <link rel="icon" href="assets/favicon.svg?v=5.0" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.min.css?v=5.0">
     <style>
         .error-page {
             min-height: 100vh;
@@ -31,7 +31,7 @@
             border-radius: 50%;
             filter: blur(140px);
             pointer-events: none;
-            background: radial-gradient(circle, rgba(186, 18, 0, 0.4), transparent 70%);
+            background: radial-gradient(circle, rgba(214, 251, 0, 0.38) 0%, rgba(0, 84, 95, 0.28) 45%, transparent 70%);
             top: 20%;
             left: 50%;
             transform: translate(-50%, -30%);
@@ -72,6 +72,7 @@
     </style>
 </head>
 <body>
+    <div class="grain-overlay" aria-hidden="true"></div>
     <main class="error-page">
         <div class="error-glow" aria-hidden="true"></div>
         <div class="error-content">

@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" font-family="Space Grotesk, system-ui, sans-serif">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9DD1F1"/><stop offset="1" stop-color="#508AA8"/></linearGradient></defs>
-  <rect width="1080" height="1350" fill="#052330"/>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6fb00"/><stop offset="1" stop-color="#00545f"/></linearGradient></defs>
+  <rect width="1080" height="1350" fill="#041c22"/>
   <circle cx="777" cy="432" r="270" fill="url(#g)" opacity="0.16"/>
-  <path d="M108 876 C108 951 33 1026 -42 1026 C33 1026 108 1101 108 1176 C108 1101 183 1026 258 1026 C183 1026 108 951 108 876 Z" fill="#BA1200"/>
-  <text x="90" y="168" fill="#7098AD" font-size="42" letter-spacing="5">SOCIAL</text>
-  <text x="90" y="297" fill="#EAF4FC" font-size="103" font-weight="700">Story e anuncio</text>
-  <text x="90" y="378" fill="#7098AD" font-size="39">1080 x 1350 &#183; placeholder</text>
+  <path d="M108 876 C108 951 33 1026 -42 1026 C33 1026 108 1101 108 1176 C108 1101 183 1026 258 1026 C183 1026 108 951 108 876 Z" fill="#d6fb00"/>
+  <text x="90" y="168" fill="#6e948e" font-size="42" letter-spacing="5">SOCIAL</text>
+  <text x="90" y="297" fill="#f5ffe6" font-size="103" font-weight="700">Story e anuncio</text>
+  <text x="90" y="378" fill="#6e948e" font-size="39">1080 x 1350 &#183; placeholder</text>
 </svg>
