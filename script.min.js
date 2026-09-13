@@ -431,12 +431,10 @@
                 gsap.from(pills, {
                     y: 18,
                     opacity: 0,
-                    filter: 'blur(6px)',
-                    stagger: 0.1,
-                    duration: 0.75,
+                    stagger: 0.12,
+                    duration: 0.7,
                     delay: 0.35,
-                    ease: 'power3.out',
-                    clearProps: 'filter'
+                    ease: 'power3.out'
                 });
             }
         })();
@@ -450,11 +448,9 @@
                     x: isMobile ? 0 : (isLeft ? -36 : 36),
                     y: isMobile ? 24 : 0,
                     rotateZ: isMobile ? 0 : (isLeft ? -1.2 : 1.2),
-                    opacity: 0,
-                    filter: 'blur(10px)',
-                    duration: 0.8,
+                    opacity: 0.25,
+                    duration: 0.65,
                     ease: 'power2.out',
-                    clearProps: 'filter',
                     scrollTrigger: {
                         trigger: card,
                         start: 'top 92%',
@@ -496,23 +492,19 @@
             gsap.from(words, {
                 y: 26,
                 opacity: 0,
-                filter: 'blur(10px)',
-                duration: 0.8,
+                duration: 0.75,
                 ease: 'power3.out',
-                stagger: 0.04,
-                clearProps: 'filter'
+                stagger: 0.035
             });
         }
 
         const secHeadlines = $$('.split-head h2, .statement-text h2, .about-text h2, .cta h2, .contact-intro h2');
         secHeadlines.forEach((el) => {
             gsap.from(el, {
-                y: 24,
-                opacity: 0,
-                filter: 'blur(12px)',
-                duration: 0.85,
+                y: 22,
+                opacity: 0.2,
+                duration: 0.6,
                 ease: 'power2.out',
-                clearProps: 'filter',
                 scrollTrigger: {
                     trigger: el,
                     start: 'top 90%',
@@ -523,15 +515,13 @@
 
         const headlines = h1 ? [h1, ...secHeadlines] : secHeadlines;
 
-        /* 7. FADE & STAGGER ELEMENTS (Cinematic Blur-in on Scroll) */
+        /* 7. FADE & STAGGER ELEMENTS (Fast, snappy, zero blank lag) */
         $$('[data-anim="fade"]').forEach((el) => {
             gsap.from(el, {
                 y: 22,
-                opacity: 0,
-                filter: 'blur(10px)',
-                duration: 0.8,
+                opacity: 0.35,
+                duration: 0.65,
                 ease: 'power2.out',
-                clearProps: 'filter',
                 scrollTrigger: { trigger: el, start: 'top 92%', once: true }
             });
         });
@@ -540,34 +530,15 @@
             const children = Array.from(el.children).filter(c => !headlines.includes(c) && !c.classList.contains('work-card'));
             if (children.length) {
                 gsap.from(children, {
-                    y: 20,
-                    opacity: 0,
-                    filter: 'blur(8px)',
-                    duration: 0.75,
+                    y: 18,
+                    opacity: 0.35,
+                    duration: 0.6,
                     ease: 'power2.out',
-                    stagger: 0.07,
-                    clearProps: 'filter',
+                    stagger: 0.05,
                     scrollTrigger: { trigger: el, start: 'top 90%', once: true }
                 });
             }
         });
-
-        const phone = $('.statement-phone');
-        if (phone) {
-            gsap.from(phone, {
-                y: 36,
-                opacity: 0,
-                filter: 'blur(14px)',
-                duration: 0.9,
-                ease: 'power2.out',
-                clearProps: 'filter',
-                scrollTrigger: {
-                    trigger: phone,
-                    start: 'top 90%',
-                    once: true
-                }
-            });
-        }
 
         /* 7. PARALLAX (Desktop Only) */
         if (fine) {
@@ -851,17 +822,13 @@
         ScrollTrigger.refresh();
         const ensureVisible = () => {
             $$('[data-anim]').forEach((el) => {
-                if (parseFloat(getComputedStyle(el).opacity) === 0) gsap.set(el, { opacity: 1, y: 0, clearProps: 'filter' });
+                if (parseFloat(getComputedStyle(el).opacity) === 0) gsap.set(el, { opacity: 1, y: 0 });
                 if (el.dataset.anim === 'stagger') {
                     Array.from(el.children).forEach((c) => {
-                        if (parseFloat(getComputedStyle(c).opacity) === 0) gsap.set(c, { opacity: 1, y: 0, clearProps: 'filter' });
+                        if (parseFloat(getComputedStyle(c).opacity) === 0) gsap.set(c, { opacity: 1, y: 0 });
                     });
                 }
             });
-            const phone = $('.statement-phone');
-            if (phone && parseFloat(getComputedStyle(phone).opacity) === 0) {
-                gsap.set(phone, { opacity: 1, y: 0, clearProps: 'filter' });
-            }
         };
         setTimeout(ensureVisible, 1200);
         setTimeout(ensureVisible, 3000);
