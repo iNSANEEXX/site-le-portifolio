@@ -595,18 +595,24 @@
 
             const calcOffsets = () => {
                 const w = window.innerWidth;
-                const dist = Math.max(w * 0.58, 400);
+                const isMobile = w <= 680;
+                const isTablet = w <= 992 && !isMobile;
+                // Proportional flight distance adapted to mobile and desktop screens
+                const dist = isMobile
+                    ? Math.min(w * 0.75, 330)
+                    : (isTablet ? Math.min(w * 0.65, 460) : Math.max(w * 0.58, 480));
                 const startX = dist;
                 const startY = dist * 0.80; // Exact collinear trajectory along 38.6° axis
-                const endX = -dist * 1.05;
-                const endY = -dist * 1.05 * 0.80;
+                const endX = -dist * 1.08;
+                const endY = -dist * 1.08 * 0.80;
                 return {
                     startX,
                     startY,
-                    midX: -25,
-                    midY: -20,
+                    midX: isMobile ? -14 : -25,
+                    midY: isMobile ? -11 : -20,
                     endX,
-                    endY
+                    endY,
+                    isMobile
                 };
             };
 
@@ -614,20 +620,20 @@
 
             const buildFlightTimeline = () => {
                 if (flightTl) flightTl.kill();
-                const { startX, startY, midX, midY, endX, endY } = calcOffsets();
+                const { startX, startY, midX, midY, endX, endY, isMobile } = calcOffsets();
 
                 // Initial position: far bottom-right on exact collinear line
                 gsap.set(vessel, {
                     x: startX,
                     y: startY,
-                    scale: 0.9,
+                    scale: isMobile ? 0.92 : 0.9,
                     opacity: 0,
                     rotation: 0
                 });
 
                 flightTl = gsap.timeline({
                     repeat: -1,
-                    repeatDelay: 1.4,
+                    repeatDelay: isMobile ? 1.6 : 1.4,
                     defaults: { overwrite: 'auto' }
                 });
 
@@ -643,7 +649,7 @@
                         y: 0,
                         scale: 1,
                         rotation: 0,
-                        duration: 1.35,
+                        duration: isMobile ? 1.2 : 1.35,
                         ease: 'power3.out'
                     }, 0)
 
@@ -692,6 +698,30 @@
                 onEnterBack: () => flightTl && flightTl.play(),
                 onLeaveBack: () => flightTl && flightTl.pause()
             });
+
+            // Interactive touch / tap turbo boost on both mobile and desktop
+            const triggerTurboBoost = () => {
+                const flameImg = $('.process-flame-img', vessel);
+                gsap.to(vessel, {
+                    scale: 1.08,
+                    duration: 0.22,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+                if (flameImg) {
+                    gsap.to(flameImg, {
+                        filter: 'url(#liquidWaveFilter) drop-shadow(0 0 65px rgba(214, 251, 0, 0.95)) drop-shadow(0 25px 65px rgba(0, 84, 95, 0.85))',
+                        duration: 0.25,
+                        yoyo: true,
+                        repeat: 1,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+                }
+            };
+            stage.addEventListener('pointerdown', triggerTurboBoost, { passive: true });
         })();
 
         /* 11. 3D TILT WITH SPECULAR SHEEN */
