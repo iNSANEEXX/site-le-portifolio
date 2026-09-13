@@ -968,13 +968,13 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     vertical-align: bottom;
     margin-bottom: -4px;
 }
-/* Statement Centered Solar Eclipse Glow */
+/* Statement Centered Solar Eclipse Glow (Anchored behind the phone showcase) */
 .statement-sol-center {
     position: absolute;
-    top: 50%;
+    top: 54%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(400px, 58vw, 760px);
+    width: clamp(340px, 132%, 680px);
     pointer-events: none;
     user-select: none;
     z-index: 1;
@@ -984,7 +984,7 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     width: 100% !important;
     height: auto !important;
     display: block !important;
-    filter: drop-shadow(0 0 75px rgba(214, 251, 0, 0.5)) drop-shadow(0 20px 100px rgba(0, 84, 95, 0.75)) !important;
+    filter: drop-shadow(0 0 65px rgba(214, 251, 0, 0.45)) drop-shadow(0 20px 85px rgba(0, 84, 95, 0.7)) !important;
 }
 @keyframes solCenterBreath {
     0% {
@@ -1486,6 +1486,14 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border: none;
     .process-flight-stage:hover .process-flame-img,
     .process-flight-stage:active .process-flame-img {
         filter: drop-shadow(0 0 32px rgba(214, 251, 0, 0.95)) drop-shadow(0 14px 30px rgba(0, 84, 95, 0.8)) !important;
+    }
+    /* Statement sol positioned closer to the middle of the phone, safely below text */
+    .statement-sol-center {
+        top: 55% !important;
+        width: clamp(310px, 122%, 440px) !important;
+    }
+    .statement-sol-center img {
+        filter: drop-shadow(0 0 32px rgba(214, 251, 0, 0.4)) drop-shadow(0 12px 40px rgba(0, 84, 95, 0.55)) !important;
     }
 }
 
