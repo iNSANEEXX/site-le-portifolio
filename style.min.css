@@ -1412,7 +1412,12 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border: none;
 }
 
 /* 22. MOTION ========================================== */
-[data-anim] { opacity: 1; }
+[data-anim] {
+    opacity: 1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
 
 .split-word {
     display: inline-block;
@@ -1422,7 +1427,23 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border: none;
 }
 .split-word > span {
     display: inline-block;
-    will-change: transform, opacity;
+    will-change: transform, opacity, filter;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.split-head h2,
+.statement-text h2,
+.about-text h2,
+.cta h2,
+.contact-intro h2,
+.work-card,
+.approach-card,
+.cap,
+.plan,
+.faq-item {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /* 23. RESPONSIVE ===================================== */
