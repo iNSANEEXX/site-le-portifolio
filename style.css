@@ -221,7 +221,7 @@ body.has-cursor.cursor-hover .cursor-dot { opacity: 0; transform: translate(-50%
 body.has-cursor.cursor-view .cursor { width: 76px; height: 76px; background: var(--baby); border-color: transparent; }
 body.has-cursor.cursor-view .cursor-dot { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
 body.has-cursor.cursor-view .cursor-label { opacity: 1; }
-@media (pointer: coarse) { .cursor, .cursor-dot { display: none !important; } }
+@media (pointer: coarse) { .cursor, .cursor-dot, .hero-scroll { display: none !important; } }
 
 /* 6. HEADER ============================================================= */
 .header { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); width: calc(100% - 28px); max-width: var(--container); z-index: 200; border: 1px solid var(--line); border-radius: 100px; background: rgba(2, 20, 24, 0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: top .35s var(--ease), background-color .35s, border-color .35s; }
@@ -1049,6 +1049,8 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /* Ambient glow surrounding the flying rocket and flame */
@@ -1066,6 +1068,7 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     animation: liquidAura 8s ease-in-out infinite alternate;
     pointer-events: none;
     z-index: 0;
+    will-change: transform, opacity;
 }
 
 /* Flame wrapper trailing seamlessly behind the rocket */
@@ -1074,10 +1077,12 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     width: 60%;
     top: 15.8%;
     left: 53.1%;
-    transform: rotate(38.6deg);
+    transform: rotate(38.6deg) translateZ(0);
     transform-origin: 9.38% 50.44%;
     z-index: 1;
     pointer-events: none;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /* Thruster core hot plasma pulse */
@@ -1094,11 +1099,12 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     z-index: 0;
     pointer-events: none;
     animation: thrusterPulse 1.1s ease-in-out infinite alternate;
+    transform: translateZ(0);
 }
 
 @keyframes thrusterPulse {
-    0% { transform: scale(0.9); opacity: 0.7; }
-    100% { transform: scale(1.2); opacity: 1; }
+    0% { transform: scale(0.9) translateZ(0); opacity: 0.7; }
+    100% { transform: scale(1.2) translateZ(0); opacity: 1; }
 }
 
 .process-flame-img {
@@ -1112,6 +1118,9 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     animation: liquidFluidMotion 6.5s ease-in-out infinite;
     will-change: transform, filter;
     transition: filter 0.4s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 /* The rocket placed on top of the green flame - enlarged & aligned */
@@ -1121,13 +1130,15 @@ body.has-cursor.cursor-view .cursor-label { opacity: 1; }
     height: auto;
     top: 2%;
     left: 2%;
-    transform: scaleX(-1);
+    transform: scaleX(-1) translateZ(0);
     transform-origin: 50% 50%;
     z-index: 2;
     display: block;
     filter: drop-shadow(0 20px 42px rgba(0, 0, 0, 0.82)) drop-shadow(0 0 28px rgba(214, 251, 0, 0.35));
     pointer-events: none;
     transition: filter 0.3s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .process-flight-stage:hover .process-flame-img {
@@ -1416,6 +1427,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border: none;
 
 /* 23. RESPONSIVE ===================================== */
 @media (max-width: 1024px) {
+    .hero-scroll { display: none !important; }
     .nav { display: none; }
     .burger { display: block; }
     .header-actions .btn-sm { display: none; }
@@ -1443,7 +1455,71 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border: none;
     .gfx-grid { column-count: 2; }
 }
 
+@media (max-width: 768px), (pointer: coarse) {
+    /* Mobile-optimized 60FPS fluid rocket flight pipeline */
+    .hero-scroll { display: none !important; }
+    .process-flight-stage {
+        perspective: none !important;
+        transform-style: flat !important;
+    }
+    .process-rocket-vessel {
+        transform-style: flat !important;
+        will-change: transform, opacity !important;
+    }
+    .process-rocket-vessel::before {
+        border-radius: 50% !important;
+        filter: blur(18px) !important;
+        animation: liquidAuraMobile 4s ease-in-out infinite alternate !important;
+        will-change: transform, opacity !important;
+    }
+    .process-flame-img {
+        /* Bypasses CPU-bound SVG feTurbulence displacement filter on mobile for butter-smooth 60/120 FPS */
+        filter: drop-shadow(0 0 22px rgba(214, 251, 0, 0.8)) drop-shadow(0 10px 24px rgba(0, 84, 95, 0.65)) !important;
+        animation: liquidFluidMotionMobile 3.6s ease-in-out infinite !important;
+        will-change: transform !important;
+    }
+    .process-rocket-img {
+        /* Reduced convolution radius for 60FPS mobile fill-rate */
+        filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 16px rgba(214, 251, 0, 0.35)) !important;
+        will-change: transform !important;
+    }
+    .process-flight-stage:hover .process-flame-img,
+    .process-flight-stage:active .process-flame-img {
+        filter: drop-shadow(0 0 32px rgba(214, 251, 0, 0.95)) drop-shadow(0 14px 30px rgba(0, 84, 95, 0.8)) !important;
+    }
+}
+
+@keyframes liquidAuraMobile {
+    0% {
+        transform: translate(-50%, -50%) scale(0.93);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 0.95;
+    }
+}
+
+@keyframes liquidFluidMotionMobile {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1, 1) rotate(0deg);
+    }
+    25% {
+        transform: translate3d(0, -5px, 0) scale(1.02, 0.98) rotate(0.8deg);
+    }
+    50% {
+        transform: translate3d(0, 3px, 0) scale(0.98, 1.02) rotate(-0.6deg);
+    }
+    75% {
+        transform: translate3d(0, -6px, 0) scale(1.02, 0.98) rotate(0.6deg);
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1, 1) rotate(0deg);
+    }
+}
+
 @media (max-width: 680px) {
+    .hero-scroll { display: none !important; }
     .header { width: calc(100% - 24px); left: 50%; transform: translateX(-50%); }
     .header-inner { padding: 0 12px; }
     .hero-glow, .statement-glow, .cta-glow, .process-wave-glow { display: none; }

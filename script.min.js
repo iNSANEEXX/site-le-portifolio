@@ -576,11 +576,11 @@
 
             const calcOffsets = () => {
                 const w = window.innerWidth;
-                const isMobile = w <= 680;
+                const isMobile = w <= 768 || !fine;
                 const isTablet = w <= 992 && !isMobile;
                 // Proportional flight distance adapted to mobile and desktop screens
                 const dist = isMobile
-                    ? Math.min(w * 0.75, 330)
+                    ? Math.min(w * 0.72, 320)
                     : (isTablet ? Math.min(w * 0.65, 460) : Math.max(w * 0.58, 480));
                 const startX = dist;
                 const startY = dist * 0.80; // Exact collinear trajectory along 38.6° axis
@@ -589,8 +589,8 @@
                 return {
                     startX,
                     startY,
-                    midX: isMobile ? -14 : -25,
-                    midY: isMobile ? -11 : -20,
+                    midX: isMobile ? -16 : -25,
+                    midY: isMobile ? -12 : -20,
                     endX,
                     endY,
                     isMobile
@@ -609,55 +609,102 @@
                     y: startY,
                     scale: isMobile ? 0.92 : 0.9,
                     opacity: 0,
-                    rotation: 0
+                    rotation: 0,
+                    force3D: true
                 });
 
                 flightTl = gsap.timeline({
                     repeat: -1,
-                    repeatDelay: isMobile ? 1.6 : 1.4,
-                    defaults: { overwrite: 'auto' }
+                    repeatDelay: isMobile ? 1.4 : 1.4,
+                    defaults: { overwrite: 'auto', force3D: true }
                 });
 
-                // Phase 1: Fast entry from bottom-right, decelerating into center
-                flightTl
-                    .to(vessel, {
-                        opacity: 1,
-                        duration: 0.25,
-                        ease: 'power1.out'
-                    }, 0)
-                    .to(vessel, {
-                        x: 0,
-                        y: 0,
-                        scale: 1,
-                        rotation: 0,
-                        duration: isMobile ? 1.2 : 1.35,
-                        ease: 'power3.out'
-                    }, 0)
-
-                // Phase 2: Decelerates in center, gentle float/drift & pulse
-                    .to(vessel, {
-                        x: midX,
-                        y: midY,
-                        scale: 1.025,
-                        rotation: -2.5,
-                        duration: 1.7,
-                        ease: 'sine.inOut'
-                    })
-
-                // Phase 3: Accelerates fast towards top-left
-                    .to(vessel, {
-                        x: endX,
-                        y: endY,
-                        scale: 1.08,
-                        rotation: -5,
-                        duration: 1.15,
-                        ease: 'power2.in'
-                    })
-                    .to(vessel, {
-                        opacity: 0,
-                        duration: 0.35,
-                        ease: 'power2.in'
-                    }, '-=0.35');
+                if (isMobile) {
+                    // Mobile 60/120Hz GPU-accelerated fluid flight:
+                    // Avoids low-fps crawl, maintains continuous dynamic momentum, and glides smoothly
+                    flightTl
+                        .to(vessel, {
+                            opacity: 1,
+                            duration: 0.28,
+                            ease: 'power1.out',
+                            force3D: true
+                        }, 0)
+                        .to(vessel, {
+                            x: 0,
+                            y: 0,
+                            scale: 1,
+                            rotation: 0,
+                            duration: 1.1,
+                            ease: 'power2.out',
+                            force3D: true
+                        }, 0)
+                        .to(vessel, {
+                            x: midX,
+                            y: midY,
+                            scale: 1.03,
+                            rotation: -2,
+                            duration: 1.35,
+                            ease: 'power1.inOut',
+                            force3D: true
+                        })
+                        .to(vessel, {
+                            x: endX,
+                            y: endY,
+                            scale: 1.08,
+                            rotation: -4.5,
+                            duration: 1.05,
+                            ease: 'power2.in',
+                            force3D: true
+                        })
+                        .to(vessel, {
+                            opacity: 0,
+                            duration: 0.3,
+                            ease: 'power2.in',
+                            force3D: true
+                        }, '-=0.3');
+                } else {
+                    // Desktop timeline
+                    flightTl
+                        .to(vessel, {
+                            opacity: 1,
+                            duration: 0.25,
+                            ease: 'power1.out',
+                            force3D: true
+                        }, 0)
+                        .to(vessel, {
+                            x: 0,
+                            y: 0,
+                            scale: 1,
+                            rotation: 0,
+                            duration: 1.35,
+                            ease: 'power3.out',
+                            force3D: true
+                        }, 0)
+                        .to(vessel, {
+                            x: midX,
+                            y: midY,
+                            scale: 1.025,
+                            rotation: -2.5,
+                            duration: 1.7,
+                            ease: 'sine.inOut',
+                            force3D: true
+                        })
+                        .to(vessel, {
+                            x: endX,
+                            y: endY,
+                            scale: 1.08,
+                            rotation: -5,
+                            duration: 1.15,
+                            ease: 'power2.in',
+                            force3D: true
+                        })
+                        .to(vessel, {
+                            opacity: 0,
+                            duration: 0.35,
+                            ease: 'power2.in',
+                            force3D: true
+                        }, '-=0.35');
+                }
             };
 
             buildFlightTimeline();
@@ -689,15 +736,21 @@
                     yoyo: true,
                     repeat: 1,
                     ease: 'power2.out',
+                    force3D: true,
                     overwrite: 'auto'
                 });
                 if (flameImg) {
+                    const isMobileOrTouch = window.innerWidth <= 768 || !window.matchMedia('(pointer: fine)').matches;
+                    const flameFilter = isMobileOrTouch
+                        ? 'drop-shadow(0 0 35px rgba(214, 251, 0, 0.95)) drop-shadow(0 15px 35px rgba(0, 84, 95, 0.85))'
+                        : 'url(#liquidWaveFilter) drop-shadow(0 0 65px rgba(214, 251, 0, 0.95)) drop-shadow(0 25px 65px rgba(0, 84, 95, 0.85))';
                     gsap.to(flameImg, {
-                        filter: 'url(#liquidWaveFilter) drop-shadow(0 0 65px rgba(214, 251, 0, 0.95)) drop-shadow(0 25px 65px rgba(0, 84, 95, 0.85))',
+                        filter: flameFilter,
                         duration: 0.25,
                         yoyo: true,
                         repeat: 1,
                         ease: 'power2.out',
+                        force3D: true,
                         overwrite: 'auto'
                     });
                 }
