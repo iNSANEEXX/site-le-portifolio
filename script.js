@@ -323,26 +323,7 @@
 
 
 
-        /* ---------- Contact form ---------- */
-        (() => {
-            const form = $('#contact-form'), ok = $('#form-success'), rd = $('#form-redirect');
-            if (!form || !ok) return;
-            if (rd) rd.value = location.href;
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = $('button[type="submit"]', form);
-                if (btn) { btn.disabled = true; btn.textContent = 'A enviar...'; }
-                try {
-                    const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-                    if (!r.ok) throw 0;
-                    form.querySelectorAll('.form-row, .form-group, button[type="submit"]').forEach((n) => n.hidden = true);
-                    ok.hidden = false;
-                } catch (_) {
-                    alert('Falha no envio. Tenta novamente ou fala pelo WhatsApp.');
-                    if (btn) { btn.disabled = false; btn.textContent = 'Enviar mensagem'; }
-                }
-            });
-        })();
+
 
         /* ---------- Dual Cursor (Precision Pinpoint + Damped Trailing Ring) ---------- */
         if (fine && !reduce) {
